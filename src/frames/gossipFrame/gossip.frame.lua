@@ -1,7 +1,7 @@
 ---@diagnostic disable: undefined-global
 NUMGOSSIPBUTTONS = 32;
 
-local OPTION_BG = "Interface\\AddOns\\DialogUI\\src\\assets\\art\\parchment\\OptionBackground-Common";
+local OPTION_BG = "Interface\\AddOns\\DialogUIWotLK\\src\\assets\\art\\parchment\\OptionBackground-Common";
 
 -- Some mods (e.g. Transmog Plus) embed an inline icon tag at the start of
 -- gossip option text, e.g. "|TInterface/ICONS/Ability_Spy:30:30:-18:0|tBack".
@@ -39,15 +39,17 @@ function DGossipFrame_HideDefaultFrames()
     GossipFramePortrait:SetTexture()
 end
 
-
 function DGossipFrame_OnLoad()
     DGossipFrame_HideDefaultFrames()
     this:RegisterEvent("GOSSIP_SHOW");
     this:RegisterEvent("GOSSIP_CLOSED");
-    -- Silence Blizzard's default GossipFrame so it never flashes before the addon frame.
+    
+	-- Silence Blizzard's default GossipFrame so it never flashes before the addon frame.
     if (GossipFrame) then
         GossipFrame:UnregisterAllEvents();
+		GossipFrame:Hide();	
     end
+		
     -- ESC closes via UISpecialFrames now that the Blizzard frame is silenced
     -- (OnHide calls CloseGossip).
     if (UISpecialFrames) then
@@ -56,11 +58,11 @@ function DGossipFrame_OnLoad()
     for i = 1, 32 do
         local prev = (i == 1) and "DGossipGreetingText" or ("DGossipTitleButton" .. (i - 1))
         local btn = CreateFrame("Button", "DGossipTitleButton" .. i, DGossipGreetingScrollChildFrame, "DGossipTitleButtonTemplate")
-        btn:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", (i == 1) and -10 or 0, (i == 1) and -20 or -10)
+        btn:SetPoint("TOPLEFT", prev, "BOTTOMLEFT", 0, (i == 1) and -20 or -10)
     end
 end
 
-function DGossipFrame_OnEvent()
+function DGossipFrame_OnEvent(event)
     if (event == "GOSSIP_SHOW") then
         if (DialogUI_ShouldSuppressGossip()) then
             if (DGossipFrame:IsVisible()) then
@@ -69,7 +71,11 @@ function DGossipFrame_OnEvent()
             return;
         end
         if (not DGossipFrame:IsVisible()) then
-            ShowUIPanel(DGossipFrame);
+            -- hide Blizzard GossipFrame behind DGossipFrame
+			GossipFrame:SetPoint("TOPLEFT", this, "TOPLEFT", 50, -50);
+			GossipFrame:SetScale(0.5);
+			
+			ShowUIPanel(DGossipFrame);
             if (not DGossipFrame:IsVisible()) then
                 CloseGossip();
                 return;
@@ -78,7 +84,8 @@ function DGossipFrame_OnEvent()
         DGossipFrame_Update();
     elseif (event == "GOSSIP_CLOSED") then
         HideUIPanel(DGossipFrame);
-    end
+		HideUIPanel(GossipFrame);
+	end
 end
 
 -- Simplified option selection function
@@ -171,7 +178,7 @@ function DGossipFrame_AvailableQuestsUpdate(...)
         local gossipIcon = getglobal(titleButton:GetName() .. "GossipIcon")
 
         if gossipIcon then
-            gossipIcon:SetTexture("Interface\\AddOns\\DialogUI\\src\\assets\\art\\icons\\availableQuestIcon.tga")
+            gossipIcon:SetTexture("Interface\\AddOns\\DialogUIWotLK\\src\\assets\\art\\icons\\availableQuestIcon.tga")
             gossipIcon:Show()
         end
 
@@ -213,7 +220,7 @@ function DGossipFrame_ActiveQuestsUpdate(...)
         local gossipIcon = getglobal(titleButton:GetName() .. "GossipIcon")
 
         if gossipIcon then
-            gossipIcon:SetTexture("Interface\\AddOns\\DialogUI\\src\\assets\\art\\icons\\activeQuestIcon.tga")
+            gossipIcon:SetTexture("Interface\\AddOns\\DialogUIWotLK\\src\\assets\\art\\icons\\activeQuestIcon.tga")
             gossipIcon:Show()
         end
 
@@ -330,19 +337,19 @@ function DGossipFrame_OptionsUpdate(...)
             specificType = DetermineGossipIconType(option.text)
 
             if specificType == "petTrainer" then
-                texturePath = "Interface\\AddOns\\DialogUI\\src\\assets\\art\\icons\\petTrainer.tga"
+                texturePath = "Interface\\AddOns\\DialogUIWotLK\\src\\assets\\art\\icons\\petTrainer.tga"
             else
-                texturePath = "Interface\\AddOns\\DialogUI\\src\\assets\\art\\icons\\" .. specificType .. "GossipIcon.tga"
+                texturePath = "Interface\\AddOns\\DialogUIWotLK\\src\\assets\\art\\icons\\" .. specificType .. "GossipIcon.tga"
             end
         elseif iconMap[iconType] then
-            texturePath = "Interface\\AddOns\\DialogUI\\src\\assets\\art\\icons\\" .. iconMap[iconType]
+            texturePath = "Interface\\AddOns\\DialogUIWotLK\\src\\assets\\art\\icons\\" .. iconMap[iconType]
         else
             specificType = DetermineGossipIconType(option.text)
 
             if specificType == "petTrainer" then
-                texturePath = "Interface\\AddOns\\DialogUI\\src\\assets\\art\\icons\\petTrainer.tga"
+                texturePath = "Interface\\AddOns\\DialogUIWotLK\\src\\assets\\art\\icons\\petTrainer.tga"
             else
-                texturePath = "Interface\\AddOns\\DialogUI\\src\\assets\\art\\icons\\" .. specificType .. "GossipIcon.tga"
+                texturePath = "Interface\\AddOns\\DialogUIWotLK\\src\\assets\\art\\icons\\" .. specificType .. "GossipIcon.tga"
             end
         end
 
@@ -350,7 +357,7 @@ function DGossipFrame_OptionsUpdate(...)
         gossipIcon:Show()
 
         if not gossipIcon:GetTexture() then
-            gossipIcon:SetTexture("Interface\\AddOns\\DialogUI\\src\\assets\\art\\icons\\PetitionGossipIcon.tga")
+            gossipIcon:SetTexture("Interface\\AddOns\\DialogUIWotLK\\src\\assets\\art\\icons\\PetitionGossipIcon.tga")
         end
 
         DGossipFrame.buttonIndex = DGossipFrame.buttonIndex + 1
@@ -390,7 +397,7 @@ function DetermineGossipIconType(gossipText)
         return "classTrainer"
     elseif string.find(text, "stable") then
         return "stablemaster"
-    elseif string.find(text, "inn") then
+    elseif string.find(text, "inn your home") then
         return "innKeeper"
     elseif string.find(text, "mailbox") then
         return "mailbox"
