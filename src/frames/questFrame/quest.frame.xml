@@ -4,12 +4,12 @@
     <Frame name="DQuestFrame" toplevel="true" parent="UIParent" movable="true" enableMouse="true"
         hidden="true">
         <Size>
-            <AbsDimension x="384" y="512" />
+            <AbsDimension x="512" y="512" />
         </Size>
         <Anchors>
             <Anchor point="TOPLEFT">
                 <Offset>
-                    <AbsDimension x="0" y="-104" />
+                    <AbsDimension x="50" y="-104" />
                 </Offset>
             </Anchor>
         </Anchors>
@@ -19,45 +19,28 @@
         <Frames>
             <Frame name="DQuestNpcNameFrame">
                 <Size>
-                    <AbsDimension x="300" y="14" />
+                    <AbsDimension x="512" y="50" />
                 </Size>
                 <Anchors>
                     <Anchor point="TOP" relativeTo="DQuestFrame" relativePoint="TOP">
                         <Offset>
-                            <AbsDimension x="4" y="-50" />
+                            <AbsDimension x="40" y="-40" />
                         </Offset>
                     </Anchor>
                 </Anchors>
                 <Layers>
-                    <!-- Header divider on BACKGROUND so the portrait (BORDER layer)
-                         draws OVER it, not the other way round. -->
-                    <Layer level="BACKGROUND">
-                        <Texture name="DQuestHeaderDivider"
-                            file="Interface\AddOns\DialogUI\src\assets\art\parchment\Divider-H">
-                            <Size>
-                                <AbsDimension x="360" y="26" />
-                            </Size>
-                            <Anchors>
-                                <Anchor point="TOP" relativeTo="DQuestFrame" relativePoint="TOP">
-                                    <Offset>
-                                        <AbsDimension x="60" y="-72" />
-                                    </Offset>
-                                </Anchor>
-                            </Anchors>
-                        </Texture>
-                    </Layer>
                     <Layer level="ARTWORK">
                         <!-- NPC name centered over the top divider. Anchored to the
                              frame (not the name-frame) so it centers on the page; on
                              this elevated (+2) frame so it draws above the parchment. -->
-                        <FontString name="DQuestFrameNpcNameText" inherits="DQuestTitleFont" text="Title Text" justifyH="CENTER">
+                        <FontString name="DQuestFrameNpcNameText" inherits="DQuestTitleFont" text="Title Text" justifyH="LEFT" justifyV="BOTTOM">
                             <Size>
-                                <AbsDimension x="340" y="0"/>
+                                <AbsDimension x="395" y="44"/>
                             </Size>
                             <Anchors>
-                                <Anchor point="TOP" relativeTo="DQuestFrame" relativePoint="TOP">
+                                <Anchor point="TOPLEFT">
                                     <Offset>
-                                        <AbsDimension x="60" y="-42" />
+                                        <AbsDimension x="60" y="13" />
                                     </Offset>
                                 </Anchor>
                             </Anchors>
@@ -65,14 +48,14 @@
                         <!-- Rule above the Accept / Decline row: centered on the page
                              and wider than the title underline. -->
                         <Texture name="DQuestFooterDivider"
-                            file="Interface\AddOns\DialogUI\src\assets\art\parchment\Divider-H">
+                            file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\Divider-H">
                             <Size>
                                 <AbsDimension x="450" y="38" />
                             </Size>
                             <Anchors>
                                 <Anchor point="BOTTOM" relativeTo="DQuestFrame" relativePoint="BOTTOM">
                                     <Offset>
-                                        <AbsDimension x="50" y="76" />
+                                        <AbsDimension x="-10" y="76" />
                                     </Offset>
                                 </Anchor>
                             </Anchors>
@@ -83,12 +66,12 @@
                     <Layer level="BORDER">
                         <Texture name="DQuestFramePortrait">
                             <Size>
-                                <AbsDimension x="59" y="59" />
+                                <AbsDimension x="38" y="38" />
                             </Size>
                             <Anchors>
-                                <Anchor point="TOPLEFT">
+                                <Anchor point="TOPLEFT" >
                                     <Offset>
-                                        <AbsDimension x="12" y="13" />
+                                        <AbsDimension x="4" y="-1" />
                                     </Offset>
                                 </Anchor>
                             </Anchors>
@@ -96,9 +79,9 @@
                     </Layer>
                     <Layer level="OVERLAY">
                         <Texture name="DQuestFramePortraitRing"
-                            file="Interface\AddOns\DialogUI\src\assets\art\parchment\PortraitRing">
+                            file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\PortraitRing">
                             <Size>
-                                <AbsDimension x="124" y="124" />
+                                <AbsDimension x="90" y="90" />
                             </Size>
                             <Anchors>
                                 <Anchor point="CENTER" relativeTo="DQuestFramePortrait" relativePoint="CENTER" />
@@ -117,16 +100,32 @@
                     <Button name="DQuestFrameCancelButton" inherits="DUIPanelButtonTemplate"
                         text="CANCEL">
                         <Size>
-                            <AbsDimension x="200" y="40" />
+                            <AbsDimension x="195" y="40" />
                         </Size>
                         <Anchors>
                             <Anchor point="BOTTOMRIGHT" relativeTo="DQuestFrame"
                                 relativePoint="BOTTOMRIGHT">
                                 <Offset>
-                                    <AbsDimension x="80" y="40" />
+                                    <AbsDimension x="-55" y="40" />
                                 </Offset>
                             </Anchor>
                         </Anchors>
+						<Layers>
+                            <Layer level="ARTWORK">
+                                <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\esc.tga">
+                                    <Size>
+                                        <AbsDimension x="25" y="25" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                            <Offset>
+                                                <AbsDimension x="8" y="0" />
+                                            </Offset>
+                                        </Anchor>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
                         <Scripts>
                             <OnClick>
                                 DQuestRewardCancelButton_OnClick();
@@ -136,16 +135,32 @@
                     <Button name="DQuestFrameCompleteQuestButton" inherits="DUIPanelButtonTemplate"
                         text="COMPLETE_QUEST">
                         <Size>
-                            <AbsDimension x="200" y="40" />
+                            <AbsDimension x="195" y="40" />
                         </Size>
                         <Anchors>
                             <Anchor point="BOTTOMLEFT" relativeTo="DQuestFrame"
                                 relativePoint="BOTTOMLEFT">
                                 <Offset>
-                                    <AbsDimension x="35" y="40" />
+                                    <AbsDimension x="45" y="40" />
                                 </Offset>
                             </Anchor>
                         </Anchors>
+						<Layers>
+                            <Layer level="ARTWORK">
+                                <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\space.tga">
+                                    <Size>
+                                        <AbsDimension x="25" y="25" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                            <Offset>
+                                                <AbsDimension x="8" y="0" />
+                                            </Offset>
+                                        </Anchor>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
                         <Scripts>
                             <OnClick>
                                 DQuestRewardCompleteButton_OnClick();
@@ -160,26 +175,26 @@
                             <Anchor point="TOPLEFT" relativeTo="DQuestFrame">
                                 <Offset>
                                     <!-- move contents of the frame -->
-                                    <AbsDimension x="40" y="-108" />
+                                    <AbsDimension x="44" y="-105" />
                                 </Offset>
                             </Anchor>
                         </Anchors>
                         <ScrollChild>
                             <Frame name="DQuestRewardScrollChildFrame">
                                 <Size>
-                                    <AbsDimension x="512" y="300" />
+                                    <AbsDimension x="400" y="300" />
                                 </Size>
                                 <Layers>
                                     <Layer>
                                         <FontString name="DQuestRewardTitleText"
                                             inherits="DQuestTitleFont" justifyH="LEFT">
                                             <Size>
-                                                <AbsDimension x="370" y="0" />
+                                                <AbsDimension x="400" y="0" />
                                             </Size>
                                             <Anchors>
                                                 <Anchor point="TOPLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="10" y="-10" />
+                                                        <AbsDimension x="0" y="0" />
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
@@ -187,14 +202,14 @@
                                         <FontString name="DQuestRewardText" inherits="DQuestFont"
                                             justifyH="LEFT">
                                             <Size>
-                                                <AbsDimension x="370" y="0" />
+                                                <AbsDimension x="400" y="0" />
                                             </Size>
                                             <Anchors>
                                                 <Anchor point="TOPLEFT"
                                                     relativeTo="DQuestRewardTitleText"
                                                     relativePoint="BOTTOMLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="1" y="-15" />
+                                                        <AbsDimension x="0" y="0" />
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
@@ -203,13 +218,13 @@
                                             inherits="DQuestTitleFont" text="QUEST_REWARDS"
                                             justifyH="LEFT">
                                             <Size>
-                                                <AbsDimension x="370" y="0" />
+                                                <AbsDimension x="400" y="0" />
                                             </Size>
                                             <Anchors>
                                                 <Anchor point="TOPLEFT" relativeTo="DQuestRewardText"
                                                     relativePoint="BOTTOMLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="1" y="-15" />
+                                                        <AbsDimension x="0" y="-12" />
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
@@ -218,14 +233,14 @@
                                             inherits="DQuestFont" text="REWARD_CHOOSE"
                                             justifyH="LEFT">
                                             <Size>
-                                                <AbsDimension x="295" y="30" />
+                                                <AbsDimension x="400" y="25" />
                                             </Size>
                                             <Anchors>
                                                 <Anchor point="TOPLEFT"
                                                     relativeTo="DQuestRewardRewardTitleText"
                                                     relativePoint="BOTTOMLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="0" y="-15" />
+                                                        <AbsDimension x="0" y="-12" />
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
@@ -234,10 +249,10 @@
                                             inherits="DQuestFont" justifyH="LEFT">
                                             <Anchors>
                                                 <Anchor point="TOPLEFT"
-                                                    relativeTo="DQuestRewardRewardTitleText"
+                                                    relativeTo="DQuestRewardItemChooseText"
                                                     relativePoint="BOTTOMLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="0" y="-15" />
+                                                        <AbsDimension x="0" y="-12" />
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
@@ -245,7 +260,13 @@
                                         <FontString name="DQuestRewardSpellLearnText"
                                             inherits="DQuestFont" hidden="true" justifyH="LEFT">
                                             <Anchors>
-                                                <Anchor point="TOPLEFT" />
+                                                <Anchor point="TOPLEFT"
+                                                    relativeTo="DQuestRewardItemReceiveText"
+                                                    relativePoint="BOTTOMLEFT">
+                                                    <Offset>
+                                                        <AbsDimension x="0" y="-12" />
+                                                    </Offset>
+                                                </Anchor>
                                             </Anchors>
                                         </FontString>
                                     </Layer>
@@ -330,7 +351,7 @@
                                     </Frame>
                                     <Frame name="DQuestRewardItemHighlight" hidden="true">
                                         <Size>
-                                            <AbsDimension x="256" y="64" />
+                                            <AbsDimension x="195" y="40" />
                                         </Size>
                                         <Anchors>
                                             <Anchor point="TOPLEFT" />
@@ -338,13 +359,17 @@
                                         <Layers>
                                             <Layer level="BACKGROUND">
                                                 <Texture
-                                                    file="Interface\AddOns\DialogUI\src\assets\art\parchment\RewardChoice-Highlight"
+                                                    file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\RewardChoice-Highlight"
                                                     alphaMode="ADD">
                                                     <Size>
-                                                        <AbsDimension x="190" y="50" />
+                                                        <AbsDimension x="195" y="40" />
                                                     </Size>
                                                     <Anchors>
-                                                        <Anchor point="TOPLEFT" />
+                                                        <Anchor point="TOPLEFT">
+															<Offset>
+																<AbsDimension x="2" y="-5" />
+															</Offset>
+														</Anchor>	
                                                     </Anchors>
                                                 </Texture>
                                             </Layer>
@@ -370,15 +395,31 @@
                 <Frames>
                     <Button name="DQuestFrameGoodbyeButton" inherits="DUIPanelButtonTemplate" text="CANCEL">
                         <Size>
-                            <AbsDimension x="200" y="40" />
+                            <AbsDimension x="195" y="40" />
                         </Size>
                         <Anchors>
                             <Anchor point="BOTTOMRIGHT" relativeTo="DQuestFrame" relativePoint="BOTTOMRIGHT">
                                 <Offset>
-                                    <AbsDimension x="80" y="40" />
+                                    <AbsDimension x="-55" y="40" />
                                 </Offset>
                             </Anchor>
                         </Anchors>
+						<Layers>
+                            <Layer level="ARTWORK">
+                                <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\esc.tga">
+                                    <Size>
+                                        <AbsDimension x="25" y="25" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                            <Offset>
+                                                <AbsDimension x="8" y="0" />
+                                            </Offset>
+                                        </Anchor>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
                         <Scripts>
                             <OnClick>
 								DQuestGoodbyeButton_OnClick();
@@ -387,15 +428,31 @@
                     </Button>
                     <Button name="DQuestFrameCompleteButton" inherits="DUIPanelButtonTemplate" text="CONTINUE">
                         <Size>
-                            <AbsDimension x="200" y="40" />
+                            <AbsDimension x="195" y="40" />
                         </Size>
                         <Anchors>
                             <Anchor point="BOTTOMLEFT" relativeTo="DQuestFrame" relativePoint="BOTTOMLEFT">
                                 <Offset>
-                                    <AbsDimension x="35" y="40" />
+                                    <AbsDimension x="45" y="40" />
                                 </Offset>
                             </Anchor>
                         </Anchors>
+						<Layers>
+                            <Layer level="ARTWORK">
+                                <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\space.tga">
+                                    <Size>
+                                        <AbsDimension x="25" y="25" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                            <Offset>
+                                                <AbsDimension x="8" y="0" />
+                                            </Offset>
+                                        </Anchor>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
                         <Scripts>
                             <OnClick>
 								DQuestProgressCompleteButton_OnClick();
@@ -409,49 +466,49 @@
                         <Anchors>
                             <Anchor point="TOPLEFT" relativeTo="DQuestFrame">
                                 <Offset>
-                                    <AbsDimension x="40" y="-108" />
+                                    <AbsDimension x="44" y="-105" />
                                 </Offset>
                             </Anchor>
                         </Anchors>
                         <ScrollChild>
                             <Frame name="DQuestProgressScrollChildFrame">
                                 <Size>
-                                    <AbsDimension x="512" y="300" />
+                                    <AbsDimension x="400" y="300" />
                                 </Size>
                                 <Layers>
                                     <Layer level="BACKGROUND">
                                         <FontString name="DQuestProgressTitleText" inherits="DQuestTitleFont" justifyH="LEFT">
                                             <Size>
-                                                <AbsDimension x="370" y="0" />
+                                                <AbsDimension x="400" y="0" />
                                             </Size>
                                             <Anchors>
                                                 <Anchor point="TOPLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="10" y="-10" />
+                                                        <AbsDimension x="0" y="0" />
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
                                         </FontString>
                                         <FontString name="DQuestProgressText" inherits="DQuestFont" justifyH="LEFT">
                                             <Size>
-                                                <AbsDimension x="370" y="0" />
+                                                <AbsDimension x="400" y="0" />
                                             </Size>
                                             <Anchors>
                                                 <Anchor point="TOPLEFT" relativeTo="DQuestProgressTitleText" relativePoint="BOTTOMLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="1" y="-15" />
+                                                        <AbsDimension x="0" y="0" />
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
                                         </FontString>
                                         <FontString name="DQuestProgressRequiredItemsText" inherits="DQuestTitleFont" text="TURN_IN_ITEMS" justifyH="LEFT">
                                             <Size>
-                                                <AbsDimension x="295" y="0"/>
+                                                <AbsDimension x="400" y="25"/>
                                             </Size>
                                             <Anchors>
                                                 <Anchor point="TOPLEFT" relativeTo="DQuestProgressText" relativePoint="BOTTOMLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="0" y="-10"/>
+                                                        <AbsDimension x="0" y="-12"/>
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
@@ -460,7 +517,7 @@
                                             <Anchors>
                                                 <Anchor point="TOPLEFT" relativeTo="DQuestProgressRequiredItemsText" relativePoint="BOTTOMLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="0" y="-10"/>
+                                                        <AbsDimension x="0" y="-12"/>
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
@@ -472,7 +529,7 @@
                                         <Anchors>
                                             <Anchor point="LEFT" relativeTo="DQuestProgressRequiredMoneyText" relativePoint="RIGHT">
                                                 <Offset>
-                                                    <AbsDimension x="10" y="0"/>
+                                                    <AbsDimension x="0" y="0"/>
                                                 </Offset>
                                             </Anchor>
                                         </Anchors>
@@ -487,7 +544,7 @@
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="DQuestProgressRequiredItemsText" relativePoint="BOTTOMLEFT">
                                                 <Offset>
-                                                    <AbsDimension x="-3" y="-12"/>
+                                                    <AbsDimension x="0" y="-18"/>
                                                 </Offset>
                                             </Anchor>
                                         </Anchors>
@@ -496,7 +553,7 @@
                                         <Anchors>
                                             <Anchor point="LEFT" relativeTo="DQuestProgressItem1" relativePoint="RIGHT">
                                                 <Offset>
-                                                    <AbsDimension x="50" y="0"/>
+                                                    <AbsDimension x="18" y="0"/>
                                                 </Offset>
                                             </Anchor>
                                         </Anchors>
@@ -505,7 +562,7 @@
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="DQuestProgressItem1" relativePoint="BOTTOMLEFT">
                                                 <Offset>
-                                                    <AbsDimension x="0" y="-20"/>
+                                                    <AbsDimension x="0" y="-18"/>
                                                 </Offset>
                                             </Anchor>
                                         </Anchors>
@@ -514,7 +571,7 @@
                                         <Anchors>
                                             <Anchor point="LEFT" relativeTo="DQuestProgressItem3" relativePoint="RIGHT">
                                                 <Offset>
-                                                    <AbsDimension x="50" y="0"/>
+                                                    <AbsDimension x="18" y="0"/>
                                                 </Offset>
                                             </Anchor>
                                         </Anchors>
@@ -523,7 +580,7 @@
                                         <Anchors>
                                             <Anchor point="TOPLEFT" relativeTo="DQuestProgressItem3" relativePoint="BOTTOMLEFT">
                                                 <Offset>
-                                                    <AbsDimension x="0" y="-20"/>
+                                                    <AbsDimension x="0" y="-18"/>
                                                 </Offset>
                                             </Anchor>
                                         </Anchors>
@@ -532,7 +589,7 @@
                                         <Anchors>
                                             <Anchor point="LEFT" relativeTo="DQuestProgressItem5" relativePoint="RIGHT">
                                                 <Offset>
-                                                    <AbsDimension x="50" y="0"/>
+                                                    <AbsDimension x="18" y="0"/>
                                                 </Offset>
                                             </Anchor>
                                         </Anchors>
@@ -553,16 +610,32 @@
                     <Button name="DQuestFrameDeclineButton" inherits="DUIPanelButtonTemplate"
                         text="DECLINE">
                         <Size>
-                            <AbsDimension x="200" y="40" />
+                            <AbsDimension x="195" y="40" />
                         </Size>
                         <Anchors>
                             <Anchor point="BOTTOMRIGHT" relativeTo="DQuestFrame"
                                 relativePoint="BOTTOMRIGHT">
                                 <Offset>
-                                    <AbsDimension x="80" y="40" />
+                                    <AbsDimension x="-55" y="40" />
                                 </Offset>
                             </Anchor>
                         </Anchors>
+						<Layers>
+                            <Layer level="ARTWORK">
+                                <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\esc.tga">
+                                    <Size>
+                                        <AbsDimension x="25" y="25" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                            <Offset>
+                                                <AbsDimension x="8" y="0" />
+                                            </Offset>
+                                        </Anchor>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
                         <Scripts>
                             <OnClick>
                                 DQuestDetailDeclineButton_OnClick();
@@ -572,16 +645,32 @@
                     <Button name="DQuestFrameAcceptButton" inherits="DUIPanelButtonTemplate"
                         text="ACCEPT">
                         <Size>
-                            <AbsDimension x="200" y="40" />
+                            <AbsDimension x="195" y="40" />
                         </Size>
                         <Anchors>
                             <Anchor point="BOTTOMLEFT" relativeTo="DQuestFrame"
                                 relativePoint="BOTTOMLEFT">
                                 <Offset>
-                                    <AbsDimension x="35" y="40" />
+                                    <AbsDimension x="45" y="40" />
                                 </Offset>
                             </Anchor>
                         </Anchors>
+						<Layers>
+                            <Layer level="ARTWORK">
+                                <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\space.tga">
+                                    <Size>
+                                        <AbsDimension x="25" y="25" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                            <Offset>
+                                                <AbsDimension x="8" y="0" />
+                                            </Offset>
+                                        </Anchor>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
                         <Scripts>
                             <OnClick>
                                 DQuestDetailAcceptButton_OnClick();
@@ -595,26 +684,26 @@
                         <Anchors>
                             <Anchor point="TOPLEFT" relativeTo="DQuestFrame">
                                 <Offset>
-                                    <AbsDimension x="40" y="-108" />
+                                    <AbsDimension x="44" y="-105" />
                                 </Offset>
                             </Anchor>
                         </Anchors>
                         <ScrollChild>
                             <Frame name="DQuestDetailScrollChildFrame">
                                 <Size>
-                                    <AbsDimension x="512" y="300" />
+                                    <AbsDimension x="400" y="300" />
                                 </Size>
                                 <Layers>
                                     <Layer>
                                         <FontString name="DQuestTitleText" inherits="DQuestTitleFont"
                                             justifyH="LEFT">
                                             <Size>
-                                                <AbsDimension x="370" y="0" />
+                                                <AbsDimension x="400" y="0" />
                                             </Size>
                                             <Anchors>
                                                 <Anchor point="TOPLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="10" y="-10" />
+                                                        <AbsDimension x="0" y="0" />
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
@@ -622,13 +711,13 @@
                                         <FontString name="DQuestDescription" inherits="DQuestFont"
                                             justifyH="LEFT">
                                             <Size>
-                                                <AbsDimension x="370" y="0" />
+                                                <AbsDimension x="400" y="0" />
                                             </Size>
                                             <Anchors>
                                                 <Anchor point="TOPLEFT" relativeTo="DQuestTitleText"
                                                     relativePoint="BOTTOMLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="1" y="-15" />
+                                                        <AbsDimension x="0" y="0" />
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
@@ -644,7 +733,7 @@
                                             <Anchor point="TOPLEFT" relativeTo="DQuestDescription"
                                                 relativePoint="BOTTOMLEFT">
                                                 <Offset>
-                                                    <AbsDimension x="1" y="-15" />
+                                                    <AbsDimension x="0" y="0" />
                                                 </Offset>
                                             </Anchor>
                                         </Anchors>
@@ -654,14 +743,14 @@
                                                     inherits="DQuestTitleFont"
                                                     text="QUEST_OBJECTIVES" justifyH="LEFT">
                                                     <Size>
-                                                        <AbsDimension x="370" y="0" />
+                                                        <AbsDimension x="400" y="0" />
                                                     </Size>
                                                     <Anchors>
                                                         <Anchor point="TOPLEFT"
                                                             relativeTo="DQuestDescription"
                                                             relativePoint="BOTTOMLEFT">
                                                             <Offset>
-                                                                <AbsDimension x="1" y="-15" />
+                                                                <AbsDimension x="0" y="-12" />
                                                             </Offset>
                                                         </Anchor>
                                                     </Anchors>
@@ -669,14 +758,14 @@
                                                 <FontString name="DQuestObjectiveText"
                                                     inherits="DQuestFont" justifyH="LEFT">
                                                     <Size>
-                                                        <AbsDimension x="370" y="0" />
+                                                        <AbsDimension x="400" y="0" />
                                                     </Size>
                                                     <Anchors>
                                                         <Anchor point="TOPLEFT"
                                                             relativeTo="DQuestDetailObjectiveTitleText"
                                                             relativePoint="BOTTOMLEFT">
                                                             <Offset>
-                                                                <AbsDimension x="1" y="-15" />
+                                                                <AbsDimension x="0" y="-12" />
                                                             </Offset>
                                                         </Anchor>
                                                     </Anchors>
@@ -685,14 +774,14 @@
                                                     inherits="DQuestTitleFont" text="QUEST_REWARDS"
                                                     justifyH="LEFT">
                                                     <Size>
-                                                        <AbsDimension x="370" y="0" />
+                                                        <AbsDimension x="400" y="0" />
                                                     </Size>
                                                     <Anchors>
                                                         <Anchor point="TOPLEFT"
                                                             relativeTo="DQuestObjectiveText"
                                                             relativePoint="BOTTOMLEFT">
                                                             <Offset>
-                                                                <AbsDimension x="1" y="-15" />
+                                                                <AbsDimension x="0" y="-12" />
                                                             </Offset>
                                                         </Anchor>
                                                     </Anchors>
@@ -701,14 +790,14 @@
                                                     inherits="DQuestFont" text="REWARD_CHOICES"
                                                     justifyH="LEFT">
                                                     <Size>
-                                                        <AbsDimension x="370" y="0" />
+                                                        <AbsDimension x="400" y="0" />
                                                     </Size>
                                                     <Anchors>
                                                         <Anchor point="TOPLEFT"
                                                             relativeTo="DQuestDetailRewardTitleText"
                                                             relativePoint="BOTTOMLEFT">
                                                             <Offset>
-                                                                <AbsDimension x="1" y="-15" />
+                                                                <AbsDimension x="0" y="-12" />
                                                             </Offset>
                                                         </Anchor>
                                                     </Anchors>
@@ -717,14 +806,26 @@
                                                     inherits="DQuestFont" text="Reward receive text"
                                                     justifyH="LEFT">
                                                     <Anchors>
-                                                        <Anchor point="TOPLEFT" />
+                                                        <Anchor point="TOPLEFT"
+                                                            relativeTo="DQuestDetailItemChooseText"
+                                                            relativePoint="BOTTOMLEFT">
+                                                            <Offset>
+                                                                <AbsDimension x="0" y="-12" />
+                                                            </Offset>
+                                                        </Anchor>
                                                     </Anchors>
                                                 </FontString>
                                                 <FontString name="DQuestDetailSpellLearnText"
                                                     inherits="DQuestFont" hidden="true"
                                                     justifyH="LEFT">
                                                     <Anchors>
-                                                        <Anchor point="TOPLEFT" />
+                                                        <Anchor point="TOPLEFT"
+                                                            relativeTo="DQuestDetailItemReceiveText"
+                                                            relativePoint="BOTTOMLEFT">
+                                                            <Offset>
+                                                                <AbsDimension x="0" y="-12" />
+                                                            </Offset>
+                                                        </Anchor>
                                                     </Anchors>
                                                 </FontString>
                                             </Layer>
@@ -809,18 +910,18 @@
                                             </Frame>
                                         </Frames>
                                     </Frame>
-                                    <Frame name="DQuestSpacerFrame">
+                                    <!-- <Frame name="DQuestSpacerFrame">
                                         <Size>
                                             <AbsDimension x="5" y="25" />
                                         </Size>
                                         <Anchors>
                                             <Anchor point="TOP">
                                                 <Offset>
-                                                    <AbsDimension x="0" y="0" />
+                                                    <AbsDimension x="50" y="-104" />
                                                 </Offset>
                                             </Anchor>
                                         </Anchors>
-                                    </Frame>
+                                    </Frame> -->
                                 </Frames>
                             </Frame>
                         </ScrollChild>
@@ -840,16 +941,32 @@
                     <Button name="DQuestFrameGreetingGoodbyeButton" inherits="DUIPanelButtonTemplate"
                         text="GOODBYE">
                         <Size>
-                            <AbsDimension x="200" y="40" />
+                            <AbsDimension x="195" y="40" />
                         </Size>
                         <Anchors>
                             <Anchor point="BOTTOMRIGHT" relativeTo="DQuestFrame"
                                 relativePoint="BOTTOMRIGHT">
                                 <Offset>
-                                    <AbsDimension x="80" y="40" />
+                                    <AbsDimension x="-55" y="40" />
                                 </Offset>
                             </Anchor>
                         </Anchors>
+						<Layers>
+                            <Layer level="ARTWORK">
+                                <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\esc.tga">
+                                    <Size>
+                                        <AbsDimension x="25" y="25" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                            <Offset>
+                                                <AbsDimension x="8" y="0" />
+                                            </Offset>
+                                        </Anchor>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
                         <Scripts>
                             <OnClick>
                                 HideUIPanel(DQuestFrame);
@@ -864,7 +981,7 @@
                         <Anchors>
                             <Anchor point="TOPLEFT" relativeTo="DQuestFrame">
                                 <Offset>
-                                    <AbsDimension x="40" y="-108" />
+                                    <AbsDimension x="44" y="-105" />
                                 </Offset>
                             </Anchor>
                         </Anchors>
@@ -876,19 +993,19 @@
                         <ScrollChild>
                             <Frame name="DQuestGreetingScrollChildFrame">
                                 <Size>
-                                    <AbsDimension x="512" y="300" />
+                                    <AbsDimension x="400" y="300" />
                                 </Size>
                                 <Layers>
                                     <Layer>
                                         <FontString name="DGreetingText" inherits="DQuestFont"
                                             text="Filler Text" justifyH="LEFT">
                                             <Size>
-                                                <AbsDimension x="370" y="0" />
+                                                <AbsDimension x="400" y="0" />
                                             </Size>
                                             <Anchors>
                                                 <Anchor point="TOPLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="10" y="-10" />
+                                                        <AbsDimension x="0" y="0" />
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
@@ -897,25 +1014,25 @@
                                             inherits="DQuestTitleFont" text="CURRENT_QUESTS"
                                             justifyH="LEFT">
                                             <Size>
-                                                <AbsDimension x="370" y="0" />
+                                                <AbsDimension x="400" y="0" />
                                             </Size>
                                             <Anchors>
                                                 <Anchor point="TOPLEFT" relativeTo="DGreetingText"
                                                     relativePoint="BOTTOMLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="1" y="-15" />
+                                                        <AbsDimension x="0" y="0" />
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
                                         </FontString>
                                         <Texture name="DQuestGreetingFrameHorizontalBreak" file="">
                                             <Size>
-                                                <AbsDimension x="300" y="32"/>
+                                                <AbsDimension x="400" y="1"/>
                                             </Size>
                                             <Anchors>
                                                 <Anchor point="TOPLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="22" y="5"/>
+                                                        <AbsDimension x="0" y="0"/>
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
@@ -924,13 +1041,13 @@
                                             inherits="DQuestTitleFont" text="AVAILABLE_QUESTS"
                                             justifyH="LEFT">
                                             <Size>
-                                                <AbsDimension x="300" y="0" />
+                                                <AbsDimension x="400" y="25" />
                                             </Size>
                                             <Anchors>
                                                 <Anchor point="TOPLEFT" relativeTo="DGreetingText"
                                                     relativePoint="BOTTOMLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="0" y="-10" />
+                                                        <AbsDimension x="0" y="-12" />
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
