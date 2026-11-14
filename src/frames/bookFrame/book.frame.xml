@@ -31,16 +31,16 @@
             <AbsDimension x="512" y="512" />
         </Size>
         <Anchors>
-            <Anchor point="CENTER" relativeTo="UIParent">
+            <Anchor point="TOPLEFT" relativeTo="UIParent">
                 <Offset>
-                    <AbsDimension x="0" y="20" />
+                    <AbsDimension x="50" y="-104" />
                 </Offset>
             </Anchor>
         </Anchors>
         <Layers>
             <Layer level="BACKGROUND">
                 <Texture name="DBookPageTexture"
-                    file="Interface\AddOns\DialogUI\src\assets\art\parchment\BookPage">
+                    file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\BookPage">
                     <Anchors>
                         <Anchor point="TOPLEFT" />
                         <Anchor point="BOTTOMRIGHT" />
