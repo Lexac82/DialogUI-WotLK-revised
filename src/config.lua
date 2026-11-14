@@ -5,7 +5,7 @@
 
 DialogUI_Config = DialogUI_Config or {};
 
-local FONT_DIR = "Interface\\AddOns\\DialogUI\\src\\assets\\font\\";
+local FONT_DIR = "Interface\\AddOns\\DialogUIWotLK\\src\\assets\\font\\";
 
 -- Selectable prose fonts (the coin font stays Arial Narrow regardless).
 DialogUI_Config.fonts = {
