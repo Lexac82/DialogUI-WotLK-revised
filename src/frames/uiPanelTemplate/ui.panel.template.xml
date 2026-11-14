@@ -6,7 +6,7 @@
         </Anchors>
         <Layers>
             <Layer level="BACKGROUND">
-                <Texture file="Interface\AddOns\DialogUI\src\assets\art\parchment\Parchment">
+                <Texture file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\Parchment">
                     <Size x="512" y="512" />
                 </Texture>
             </Layer>
@@ -61,7 +61,7 @@
             </OnValueChanged>
         </Scripts>
         <ThumbTexture name="$parentThumbTexture" inherits="DUIPanelScrollBarButton"
-            file="Interface\AddOns\DialogUI\src\assets\art\parchment\UI-ScrollBar-Knob">
+            file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\UI-ScrollBar-Knob">
             <Size>
                 <AbsDimension x="24" y="24" />
             </Size>
