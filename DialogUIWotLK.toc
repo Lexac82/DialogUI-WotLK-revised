@@ -1,7 +1,7 @@
 ## Interface: 30300
-## Title: DialogUI
-## Author: Stefan2102 — fork of Sxus (original) & Bset (WotLK port)
-## Version: 1.0.2
+## Title: Dialog UI |cFFFF0000WotLK|r
+## Author: Lexac
+## Version: 1.0
 ## DefaultState: Enabled
 ## LoadOnDemand: 0
 ## SavedVariables: DialogUISettings
@@ -22,18 +22,14 @@ src\utils.lua
 # Addon compatibility hooks
 src\compat.lua
 
-
 # Money frame
 src\frames\moneyFrame\money.frame.lua
 src\frames\moneyFrame\money.frame.xml
-
 
 # UI panel textures
 src\frames\uiPanelTemplate\ui.panel.template.lua
 src\frames\uiPanelTemplate\ui.panel.template.xml
 src\frames\uiPanelTemplate\ui.panel.template.button.xml
-
-
 
 # Gossip frame
 src\frames\gossipFrame\gossip.frame.lua
