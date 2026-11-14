@@ -2,25 +2,25 @@
     xsi:schemaLocation="http://www.blizzard.com/wow/ui/">
     <Button name="DQuestItemTemplate" virtual="true">
         <Size>
-            <AbsDimension x="147" y="41" />
+            <AbsDimension x="195" y="40" />
         </Size>
         <Layers>
             <Layer level="BACKGROUND">
-                <Texture name="$parentBackground" file="Interface\AddOns\DialogUI\src\assets\art\parchment\RewardChoice-Pending">
+                <Texture name="$parentBackground" file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\RewardChoice-Pending">
                     <Size>
-                        <AbsDimension x="190" y="50" />
+                        <AbsDimension x="195" y="40" />
                     </Size>
                     <Anchors>
                         <Anchor point="TOPLEFT">
                             <Offset>
-                                <AbsDimension x="-2" y="5" />
+                                <AbsDimension x="0" y="0" />
                             </Offset>
                         </Anchor>
                     </Anchors>
                 </Texture>
                 <Texture name="$parentNameFrame" file="">
                     <Size>
-                        <AbsDimension x="128" y="64" />
+                        <AbsDimension x="195" y="40" />
                     </Size>
                     <Anchors>
                         <Anchor point="LEFT" relativeTo="$parentIconTexture" relativePoint="RIGHT">
@@ -34,12 +34,12 @@
             <Layer level="BORDER">
                 <Texture name="$parentIconTexture">
                     <Size>
-                        <AbsDimension x="35" y="35" />
+                        <AbsDimension x="28" y="28" />
                     </Size>
                     <Anchors>
-                        <Anchor point="TOPLEFT">
+                        <Anchor point="LEFT">
                             <Offset>
-                                <AbsDimension x="5" y="-2" />
+                                <AbsDimension x="7" y="0" />
                             </Offset>
                         </Anchor>
                     </Anchors>
@@ -48,12 +48,12 @@
             <Layer level="ARTWORK">
                 <FontString name="$parentName" inherits="DGameFontHighlight" justifyH="LEFT">
                     <Size>
-                        <AbsDimension x="120" y="36" />
+                        <AbsDimension x="140" y="36" />
                     </Size>
                     <Anchors>
                         <Anchor point="LEFT" relativeTo="$parentBackground">
                             <Offset>
-                                <AbsDimension x="45" y="0" />
+                                <AbsDimension x="40" y="0" />
                             </Offset>
                         </Anchor>
                     </Anchors>
@@ -111,7 +111,7 @@
         </Size>
         <Layers>
             <Layer level="BACKGROUND">
-                <Texture name="$parentQuestIcon" file="Interface\AddOns\DialogUI\src\assets\art\icons\availableQuestIcon">
+                <Texture name="$parentQuestIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\icons\availableQuestIcon">
                     <Size>
                         <AbsDimension x="16" y="16" />
                     </Size>
@@ -131,7 +131,7 @@
         </OnClick>
         </Scripts>
         <HighlightTexture
-        file="Interface\AddOns\DialogUI\src\assets\art\parchment\ButtonHighlight-Gossip"
+        file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\ButtonHighlight-Gossip"
         alphaMode="ADD" />
         <ButtonText inherits="DQuestFont" justifyH="LEFT">
             <Size>
