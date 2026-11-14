@@ -8,7 +8,7 @@
             </OnClick>
         </Scripts>
         <HighlightTexture
-            file="Interface\AddOns\DialogUI\src\assets\art\parchment\ButtonHighlight-Gossip"
+            file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\ButtonHighlight-Gossip"
             alphaMode="ADD" />
         <Layers>
             <Layer level="OVERLAY">
@@ -27,7 +27,7 @@
             </Layer>
         </Layers>
         <ButtonText inherits="DQuestButtonTitleGossip" justifyH="LEFT">
-            <Size x="275" y="0" />
+            <Size x="360" y="0" />
             <Anchors>
                 <Anchor point="LEFT">
                     <Offset>
@@ -41,32 +41,32 @@
     <Frame name="DGossipFrame" toplevel="true" parent="UIParent" movable="true" enableMouse="true"
         hidden="true">
         <Size>
-            <AbsDimension x="384" y="512" />
+            <AbsDimension x="512" y="512" />
         </Size>
         <Anchors>
             <Anchor point="TOPLEFT">
                 <Offset>
-                    <AbsDimension x="0" y="-104" />
+                    <AbsDimension x="50" y="-104" />
                 </Offset>
             </Anchor>
         </Anchors>
         <Frames>
             <Frame name="DGossipNpcNameFrame">
                 <Size>
-                    <AbsDimension x="300" y="14" />
+                    <AbsDimension x="512" y="50" />
                 </Size>
                 <Anchors>
                     <Anchor point="TOP" relativeTo="DGossipFrame" relativePoint="TOP">
                         <Offset>
-                            <AbsDimension x="4" y="-50" />
+                            <AbsDimension x="40" y="-40" />
                         </Offset>
                     </Anchor>
                 </Anchors>
                 <Layers>
-                    <!-- Header divider on BACKGROUND so the portrait (BORDER) draws over it. -->
+                    <!-- Header divider on BACKGROUND so the portrait (BORDER) draws over it. 
                     <Layer level="BACKGROUND">
                         <Texture name="DGossipHeaderDivider"
-                            file="Interface\AddOns\DialogUI\src\assets\art\parchment\Divider-H">
+                            file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\Divider-H">
                             <Size>
                                 <AbsDimension x="360" y="26" />
                             </Size>
@@ -78,24 +78,24 @@
                                 </Anchor>
                             </Anchors>
                         </Texture>
-                    </Layer>
+                    </Layer> -->
                     <Layer level="ARTWORK">
                         <!-- NPC name centered over the divider. -->
-                        <FontString name="DGossipFrameNpcNameText" inherits="DQuestTitleFont" justifyH="CENTER">
+                        <FontString name="DGossipFrameNpcNameText" inherits="DQuestTitleFont" justifyH="LEFT" justifyV="BOTTOM">
                             <Size>
-                                <AbsDimension x="340" y="20"/>
+                                <AbsDimension x="395" y="44"/>
                             </Size>
                             <Anchors>
-                                <Anchor point="TOP" relativeTo="DGossipFrame" relativePoint="TOP">
+                                <Anchor point="TOPLEFT">
                                     <Offset>
-                                        <AbsDimension x="60" y="-42" />
+                                        <AbsDimension x="60" y="13" />
                                     </Offset>
                                 </Anchor>
                             </Anchors>
                         </FontString>
                         <!-- Rule above the Goodbye button. -->
-                        <Texture name="DGossipFooterDivider"
-                            file="Interface\AddOns\DialogUI\src\assets\art\parchment\Divider-H">
+                        <!-- <Texture name="DGossipFooterDivider"
+                            file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\Divider-H">
                             <Size>
                                 <AbsDimension x="450" y="38" />
                             </Size>
@@ -106,18 +106,18 @@
                                     </Offset>
                                 </Anchor>
                             </Anchors>
-                        </Texture>
+                        </Texture> -->
                     </Layer>
                     <!-- Portrait below the ring so the face sits beneath the border. -->
                     <Layer level="BORDER">
                         <Texture name="DGossipFramePortrait">
                             <Size>
-                                <AbsDimension x="59" y="59" />
+                                <AbsDimension x="38" y="38" />
                             </Size>
                             <Anchors>
                                 <Anchor point="TOPLEFT">
                                     <Offset>
-                                        <AbsDimension x="12" y="13" />
+                                        <AbsDimension x="4" y="-1" />
                                     </Offset>
                                 </Anchor>
                             </Anchors>
@@ -125,9 +125,9 @@
                     </Layer>
                     <Layer level="OVERLAY">
                         <Texture name="DGossipFramePortraitRing"
-                            file="Interface\AddOns\DialogUI\src\assets\art\parchment\PortraitRing">
+                            file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\PortraitRing">
                             <Size>
-                                <AbsDimension x="124" y="124" />
+                                <AbsDimension x="90" y="90" />
                             </Size>
                             <Anchors>
                                 <Anchor point="CENTER" relativeTo="DGossipFramePortrait" relativePoint="CENTER" />
@@ -146,15 +146,31 @@
                 <Frames>
                     <Button name="DGossipFrameGreetingGoodbyeButton" inherits="DUIPanelButtonTemplate" text="GOODBYE">
                         <Size>
-                            <AbsDimension x="200" y="40" />
+                            <AbsDimension x="195" y="40" />
                         </Size>
                         <Anchors>
                             <Anchor point="BOTTOMRIGHT" relativeTo="DGossipFrame" relativePoint="BOTTOMRIGHT">
                                 <Offset>
-                                    <AbsDimension x="80" y="40" />
+                                    <AbsDimension x="-55" y="40" />
                                 </Offset>
                             </Anchor>
                         </Anchors>
+						<Layers>
+                            <Layer level="ARTWORK">
+                                <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\esc.tga">
+                                    <Size>
+                                        <AbsDimension x="25" y="25" />
+                                    </Size>
+                                    <Anchors>
+                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                            <Offset>
+                                                <AbsDimension x="8" y="0" />
+                                            </Offset>
+                                        </Anchor>
+                                    </Anchors>
+                                </Texture>
+                            </Layer>
+                        </Layers>
                         <Scripts>
                             <OnClick>
                                 HideUIPanel(DGossipFrame);
@@ -170,26 +186,26 @@
                             <Anchor point="TOPLEFT" relativeTo="DGossipFrame">
                                 <Offset>
                                     <!-- move contents of the frame -->
-                                    <AbsDimension x="40" y="-108" />
+                                    <AbsDimension x="44" y="-105" />
                                 </Offset>
                             </Anchor>
                         </Anchors>
                         <ScrollChild>
                             <Frame name="DGossipGreetingScrollChildFrame">
                                 <Size>
-                                    <AbsDimension x="512" y="300" />
+                                    <AbsDimension x="400" y="300" />
                                 </Size>
                                 <Layers>
-                                    <Layer>
+                                    <Layer level="ARTWORK">
                                         <FontString name="DGossipGreetingText" inherits="DQuestFont"
                                             text="Filler Text" justifyH="LEFT">
                                             <Size>
-                                                <AbsDimension x="370" y="0" />
+                                                <AbsDimension x="400" y="0" />
                                             </Size>
                                             <Anchors>
                                                 <Anchor point="TOPLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="10" y="-10" />
+                                                        <AbsDimension x="0" y="0" />
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
@@ -224,7 +240,7 @@
                 DGossipFrame_OnShow();
             </OnShow>
             <OnEvent>
-                DGossipFrame_OnEvent();
+                DGossipFrame_OnEvent(event);
             </OnEvent>
             <OnHide>
                 DGossipFrame_OnHide();
