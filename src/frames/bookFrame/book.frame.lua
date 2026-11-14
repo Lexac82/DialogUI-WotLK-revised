@@ -59,7 +59,7 @@ end
 -- Style a nav button's label directly (explicit font + color) so it never depends
 -- on the shared/disabled font objects, which can render blank. The option-button
 -- plate is dark, so ivory text remains legible against it.
-local BOOK_BTN_FONT = "Interface\\AddOns\\DialogUI\\src\\assets\\font\\frizqt___cyr.ttf";
+local BOOK_BTN_FONT = "Interface\\AddOns\\DialogUIWotLK\\src\\assets\\font\\frizqt___cyr.ttf";
 function DBookStyleButton(btn, label)
     btn:SetText(label);
     local fs = btn:GetFontString();
@@ -185,33 +185,26 @@ local BACKDROP_FADE = 0.5;
 
 function DBookFrame_OnShow()
     PlaySound("igQuestListOpen");
-    if (DBookBackdrop) then
+    --[[if (DBookBackdrop) then
         -- Fade the dimmer in to draw the eye to the page.
         UIFrameFadeRemoveFrame(DBookBackdrop); -- Cancel any pending fade-out
         DBookBackdrop:Show();
         DBookBackdrop:SetAlpha(0);
         UIFrameFadeIn(DBookBackdrop, BACKDROP_FADE, 0, 1);
-    end
+    end --]]
+		
     DBookFrame_SetKeys();
+	if (DialogUI_Focus) then DialogUI_Focus:OnShow(DBookFrame); end
 end
 
 function DBookFrame_OnHide()
     DBookFrame_ClearKeys();
-    if (DBookBackdrop) then
-        -- Fade the dimmer back out, then hide it once the fade completes.
-        UIFrameFadeRemoveFrame(DBookBackdrop);
-        UIFrameFade(DBookBackdrop, {
-            mode = "OUT",
-            timeToFade = BACKDROP_FADE,
-            startAlpha = DBookBackdrop:GetAlpha(),
-            endAlpha = 0,
-            finishedFunc = function() DBookBackdrop:Hide(); end,
-        });
-    end
+    if (DialogUI_Focus) then DialogUI_Focus:OnHide(); end
+	
     -- Closing the reader by any means (ESC, Close, walking away) ends the session.
     -- CloseItemText is idempotent, so the ITEM_TEXT_CLOSED it may raise is harmless.
     CloseItemText();
-    PlaySound("igQuestListClose");
+    PlaySound("igQuestListClose");	
 end
 
 function DBookPrevButton_OnClick()
