@@ -23,9 +23,15 @@ Fork of [Stefan2102's WotLK port](https://github.com/Stefan2102/DialogUI-WotLK).
 
 ## Screenshots
 
-| | |
-|:---:|:---:|
-| ![](docs/screenshot01.png) | ![](docs/screenshot02.png) |
+<img width="75%" height="75%" alt="image" src="docs/QuestGreeting.jpg" />
+
+<img width="75%" height="75%" alt="image" src="docs/QuestDetails.jpg" />
+
+<img width="75%" height="75%" alt="image" src="docs/GossipFrame.jpg" />
+
+<img width="75%" height="75%" alt="image" src="docs/BookFrame.jpg" />
+
+<img width="75%" height="75%" alt="image" src="docs/settings.png" />
 
 ## Credits
 
