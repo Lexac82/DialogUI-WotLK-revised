@@ -1,25 +1,18 @@
-# DialogUI (WotLK 3.3.5a)
+# DialogUI (WotLK 3.3.5a) revised
 
 Immersive quest / gossip / book dialog frames for WoW 3.3.5a. Replaces the
 default Blizzard frames with parchment-styled panels.
 
 Fork of [Stefan2102's WotLK port](https://github.com/Stefan2102/DialogUI-WotLK).
 
-## Differences from the original port
+## Additions in this port
 
 **Added / Fixed**
-- Focus mode split into two independent options: center dialogs and screen dimmer
-- Long NPC names now truncated with "..." instead of disappearing behind the portrait
-- Button text now renders correctly in WotLK 3.3.5a
-- Centralized color palette in one place
-- Refactored repetitive XML into Lua generation, merged duplicated templates, unified naming conventions
-
-**Removed**
-- Dark mode — light parchment only
-- Auto-advance — all NPC interactions are manual
-- Right-side frame anchor — always docks left
-- Key icon textures and key badge labels — buttons show clean text only
-- `/dui` slash command alias
+- BookFrame added in focus mode & screen dimmer modes
+- "Space" and "ESC" indicators added to buttons in Gossip and Quest-Frames
+- Adjustment of all frame sizes and locations on screen
+- Adjustment of font sizes and spacing
+- Replacement of parchment frame picture
 
 ## Screenshots
 
