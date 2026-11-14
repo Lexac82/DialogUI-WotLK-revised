@@ -27,11 +27,13 @@ dim:SetAlpha(0.5);
 backdrop:SetScript("OnMouseUp", function()
     if (DQuestFrame and DQuestFrame:IsVisible()) then HideUIPanel(DQuestFrame); end
     if (DGossipFrame and DGossipFrame:IsVisible()) then CloseGossip(); end
+	if (DBookFrame and DBookFrame:IsVisible()) then CloseItemText(); end
 end);
 
 local function AnyDialogVisible()
     return (DQuestFrame and DQuestFrame:IsVisible())
-        or (DGossipFrame and DGossipFrame:IsVisible());
+        or (DGossipFrame and DGossipFrame:IsVisible())
+		or (DBookFrame and DBookFrame:IsVisible());
 end
 
 -- Position a frame: center or top-left. Elevates strata when dimmer is on.
@@ -44,9 +46,10 @@ function DialogUI_Focus:PlaceFrame(frame)
         frame:SetFrameStrata("DIALOG");
     end
     if (IsCentered()) then
-        frame:SetPoint("CENTER", UIParent, "CENTER", -64, 20);
+        -- frame:SetPoint("CENTER", UIParent, "CENTER", -64, 20);
+		frame:SetPoint("CENTER", UIParent, "CENTER", 0, 40);
     else
-        frame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 0, -104);
+        frame:SetPoint("TOPLEFT", UIParent, "TOPLEFT", 50, -80);
     end
 end
 
@@ -82,6 +85,7 @@ end
 function DialogUI_Focus:Apply()
     if (DQuestFrame and DQuestFrame:IsVisible()) then self:PlaceFrame(DQuestFrame); end
     if (DGossipFrame and DGossipFrame:IsVisible()) then self:PlaceFrame(DGossipFrame); end
+	if (DBookFrame and DBookFrame:IsVisible()) then self:PlaceFrame(DBookFrame); end
     if (IsDimmed() and AnyDialogVisible()) then
         UIFrameFadeRemoveFrame(backdrop);
         backdrop:Show();
