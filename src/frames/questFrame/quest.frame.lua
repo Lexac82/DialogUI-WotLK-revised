@@ -37,7 +37,7 @@ end
 -- reward sells for the most, so the player can spot the best vendor-fodder pick
 -- at a glance. Ported from the modern DialogueUI (MarkHighestSellPrice). The 11th
 -- return of GetItemInfo is sellPrice (present since 3.3.0), so this works on 3.3.5a.
-local SELLCOIN_TEXTURE = "Interface\\AddOns\\DialogUI\\src\\assets\\art\\icons\\Coin-Gold";
+local SELLCOIN_TEXTURE = "Interface\\AddOns\\DialogUIWotLK\\src\\assets\\art\\icons\\Coin-Gold";
 
 local function DGetChoiceSellPrice(index)
     local link = GetQuestItemLink("choice", index);
@@ -175,24 +175,26 @@ function DQuestFrame_ClearKeys()
     end
 end
 
+
 function DQuestFrame_OnLoad()
-    this:RegisterEvent("QUEST_GREETING");
-    this:RegisterEvent("QUEST_DETAIL");
-    this:RegisterEvent("QUEST_PROGRESS");
-    this:RegisterEvent("QUEST_COMPLETE");
-    this:RegisterEvent("QUEST_FINISHED");
-    this:RegisterEvent("QUEST_ITEM_UPDATE");
-    -- Silence Blizzard's default QuestFrame so it never flashes its panels
-    -- before the addon frame takes over (e.g. when handing in a quest).
-    -- The quest API is driven directly, so the default frame is not needed.
+    -- Explicitly register events on DQuestFrame to ensure the engine triggers them
+    DQuestFrame:RegisterEvent("QUEST_GREETING");
+    DQuestFrame:RegisterEvent("QUEST_DETAIL");
+    DQuestFrame:RegisterEvent("QUEST_PROGRESS");
+    DQuestFrame:RegisterEvent("QUEST_COMPLETE");
+    DQuestFrame:RegisterEvent("QUEST_FINISHED");
+    DQuestFrame:RegisterEvent("QUEST_ITEM_UPDATE");
+
+    -- Register frame in UIPanelWindows so ESC handling works correctly
+    if UIPanelWindows then
+        UIPanelWindows["DQuestFrame"] = { area = "left", pushable = 0, whileDead = 1 };
+    end
+
+    -- Silence Blizzard's default QuestFrame
     if (QuestFrame) then
         QuestFrame:UnregisterAllEvents();
     end
-    -- ESC was handled by the (now silenced) Blizzard frame; register the
-    -- custom frame so ESC still closes it (OnHide calls CloseQuest).
-    if (UISpecialFrames) then
-        table.insert(UISpecialFrames, "DQuestFrame");
-    end
+    
     for i = 1, 32 do
         local prev = (i == 1) and "DCurrentQuestsText" or ("DQuestTitleButton" .. (i - 1))
         local btn = CreateFrame("Button", "DQuestTitleButton" .. i, DQuestGreetingScrollChildFrame, "DQuestTitleButtonTemplate")
@@ -201,12 +203,12 @@ function DQuestFrame_OnLoad()
 end
 
 function DQuestFrame_HideDefaultFrames()
-    QuestFrameGreetingPanel:Hide()
-    QuestFrameDetailPanel:Hide()
-    QuestFrameProgressPanel:Hide()
-    QuestFrameRewardPanel:Hide()
-    QuestNpcNameFrame:Hide()
-    QuestFramePortrait:SetTexture()
+    if QuestFrameGreetingPanel then QuestFrameGreetingPanel:Hide() end
+    if QuestFrameDetailPanel then QuestFrameDetailPanel:Hide() end
+    if QuestFrameProgressPanel then QuestFrameProgressPanel:Hide() end
+    if QuestFrameRewardPanel then QuestFrameRewardPanel:Hide() end
+    if QuestNpcNameFrame then QuestNpcNameFrame:Hide() end
+    if QuestFramePortrait then QuestFramePortrait:SetTexture() end
 end
 
 function DQuestFrame_OnEvent(event)
@@ -214,43 +216,76 @@ function DQuestFrame_OnEvent(event)
         HideUIPanel(DQuestFrame);
         return;
     end
+	
     if ((event == "QUEST_ITEM_UPDATE") and not DQuestFrame:IsVisible()) then
         return;
     end
 
     DQuestFrame_HideDefaultFrames();
     DQuestFrame_SetPortrait();
-    ShowUIPanel(DQuestFrame);
-    if (not DQuestFrame:IsVisible()) then
-        CloseQuest();
-        return;
-    end
+    
     if (event == "QUEST_GREETING") then
-        DQuestFrameGreetingPanel:Hide();
-        DQuestFrameGreetingPanel:Show();
-    elseif (event == "QUEST_DETAIL") then
-        DQuestFrameDetailPanel:Hide();
-        DQuestFrameDetailPanel:Show();
-    elseif (event == "QUEST_PROGRESS") then
-        DQuestFrameProgressPanel:Hide();
-        DQuestFrameProgressPanel:Show();
-    elseif (event == "QUEST_COMPLETE") then
-        DQuestFrameRewardPanel:Hide();
-        DQuestFrameRewardPanel:Show();
-    elseif (event == "QUEST_ITEM_UPDATE") then
-        if (DQuestFrameDetailPanel:IsVisible()) then
-            DQuestFrameItems_Update("DQuestDetail");
-            DQuestDetailScrollFrame:UpdateScrollChildRect();
-            DQuestDetailScrollFrameScrollBar:SetValue(0);
-        elseif (DQuestFrameProgressPanel:IsVisible()) then
-            DQuestFrameProgressItems_Update()
-            DQuestProgressScrollFrame:UpdateScrollChildRect();
-            DQuestProgressScrollFrameScrollBar:SetValue(0);
-        elseif (DQuestFrameRewardPanel:IsVisible()) then
-            DQuestFrameItems_Update("DQuestReward");
-            DQuestRewardScrollFrame:UpdateScrollChildRect();
-            DQuestRewardScrollFrameScrollBar:SetValue(0);
+        if DGossipFrame and DGossipFrame:IsVisible() then
+            HideUIPanel(DGossipFrame);
         end
+        if DQuestFrameGreetingPanel then
+            DQuestFrameGreetingPanel:Hide();
+            DQuestFrameGreetingPanel:Show();
+        end
+    elseif (event == "QUEST_DETAIL") then
+        if DGossipFrame and DGossipFrame:IsVisible() then
+            HideUIPanel(DGossipFrame);
+        end
+
+        local questTitle = GetTitleText() or "";
+        local questDescription = GetQuestText() or "";
+
+        if DQuestFrameTitleText then
+            DQuestFrameTitleText:SetText(questTitle);
+        end
+
+        if DQuestDescriptionText then
+            DQuestDescriptionText:SetText(questDescription);
+        end
+
+        if DQuestFrameDetailPanel then
+            DQuestFrameDetailPanel:Hide();
+            DQuestFrameDetailPanel:Show();
+        end
+    elseif (event == "QUEST_PROGRESS") then
+        if DQuestFrameProgressPanel then
+            DQuestFrameProgressPanel:Hide();
+            DQuestFrameProgressPanel:Show();
+        end
+    elseif (event == "QUEST_COMPLETE") then
+        if DQuestFrameRewardPanel then
+            DQuestFrameRewardPanel:Hide();
+            DQuestFrameRewardPanel:Show();
+        end
+    elseif (event == "QUEST_ITEM_UPDATE") then
+        if (DQuestFrameDetailPanel and DQuestFrameDetailPanel:IsVisible()) then
+            DQuestFrameItems_Update("DQuestDetail");
+            if DQuestDetailScrollFrame then
+                DQuestDetailScrollFrame:UpdateScrollChildRect();
+                DQuestDetailScrollFrameScrollBar:SetValue(0);
+            end
+        elseif (DQuestFrameProgressPanel and DQuestFrameProgressPanel:IsVisible()) then
+            DQuestProgressItems_Update()
+            if DQuestProgressScrollFrame then
+                DQuestProgressScrollFrame:UpdateScrollChildRect();
+                DQuestProgressScrollFrameScrollBar:SetValue(0);
+            end
+        elseif (DQuestFrameRewardPanel and DQuestFrameRewardPanel:IsVisible()) then
+            DQuestFrameItems_Update("DQuestReward");
+            if DQuestRewardScrollFrame then
+                DQuestRewardScrollFrame:UpdateScrollChildRect();
+                DQuestRewardScrollFrameScrollBar:SetValue(0);
+            end
+        end
+    end
+
+    if (DQuestFrame and not DQuestFrame:IsVisible()) then
+        ShowUIPanel(DQuestFrame);
     end
 end
 
@@ -377,17 +412,21 @@ function DQuestFrameProgressPanel_OnShow()
     DQuestProgressText:SetText(GetProgressText());
     SetFontColor(DQuestFrameNpcNameText, "DarkBrown");
     SetFontColor(DQuestProgressText, "DarkBrown");
-    if (IsQuestCompletable()) then
+    
+	if (IsQuestCompletable()) then
         DQuestFrameCompleteButton:Enable();
     else
         DQuestFrameCompleteButton:Disable();
     end
-    DQuestFrameProgressItems_Update();
-    if (QUEST_FADING_DISABLE == "0") then
+    
+	DQuestFrameProgressItems_Update();
+    
+	if (QUEST_FADING_DISABLE == "0") then
         DQuestProgressScrollChildFrame:SetAlpha(0);
         UIFrameFadeIn(DQuestProgressScrollChildFrame, QUESTINFO_FADE_IN, 0, 1);
     end
-    -- Accept/decline only; no numbered selection on this panel.
+    
+	-- Accept/decline only; no numbered selection on this panel.
     DQuestFrame_SetKeys(nil, 0);
 end
 
@@ -418,7 +457,7 @@ function DQuestFrameProgressItems_Update()
             DQuestProgressRequiredMoneyFrame:Hide();
 
             getglobal(questItemName .. 1):ClearAllPoints();
-            getglobal(questItemName .. 1):SetPoint("TOPLEFT", "DQuestProgressRequiredItemsText", "BOTTOMLEFT", -3, -12);
+            getglobal(questItemName .. 1):SetPoint("TOPLEFT", "DQuestProgressRequiredItemsText", "BOTTOMLEFT", 0, -12);
         end
 
         for i = 1, numRequiredItems, 1 do
@@ -734,13 +773,13 @@ function DQuestFrameItems_Update(questState)
             if (i > 1) then
                 questItem:ClearAllPoints();
                 if (mod(i, 2) == 1) then
-                    questItem:SetPoint("TOPLEFT", questItemName .. (index - 2), "BOTTOMLEFT", 0,-20);
+                    questItem:SetPoint("TOPLEFT", questItemName .. (index - 2), "BOTTOMLEFT", 0,-10);
                 else
-                    questItem:SetPoint("TOPLEFT", questItemName .. (index - 1), "TOPRIGHT", 50, 0);
+                    questItem:SetPoint("TOPLEFT", questItemName .. (index - 1), "TOPRIGHT", 10, 0);
                 end
             else
                 questItem:ClearAllPoints();
-                questItem:SetPoint("TOPLEFT", itemChooseText, "BOTTOMLEFT", -3, -12);
+                questItem:SetPoint("TOPLEFT", itemChooseText, "BOTTOMLEFT", 0, -12);
             end
             rewardsCount = rewardsCount + 1;
         end
@@ -785,7 +824,7 @@ function DQuestFrameItems_Update(questState)
         SetItemButtonTexture(questItem, texture);
         getglobal(questItemName .. rewardsCount .. "Name"):SetText(name);
         questItem:ClearAllPoints();
-        questItem:SetPoint("TOPLEFT", learnSpellText, "BOTTOMLEFT", -3, -12);
+        questItem:SetPoint("TOPLEFT", learnSpellText, "BOTTOMLEFT", 0, -12);
     else
         getglobal(questState .. "SpellLearnText"):Hide();
     end
@@ -840,13 +879,13 @@ function DQuestFrameItems_Update(questState)
             if (i > 1) then
                 questItem:ClearAllPoints();
                 if (mod(i, 2) == 1) then
-                    questItem:SetPoint("TOPLEFT", questItemName .. (index - 2), "BOTTOMLEFT", 0, -20);
+                    questItem:SetPoint("TOPLEFT", questItemName .. (index - 2), "BOTTOMLEFT", 0, -10);
                 else
-                    questItem:SetPoint("TOPLEFT", questItemName .. (index - 1), "TOPRIGHT", 50, 0);
+                    questItem:SetPoint("TOPLEFT", questItemName .. (index - 1), "TOPRIGHT", 10, 0);
                 end
             else
                 questItem:ClearAllPoints();
-                questItem:SetPoint("TOPLEFT", questState .. "ItemReceiveText", "BOTTOMLEFT", -3, -12);
+                questItem:SetPoint("TOPLEFT", questState .. "ItemReceiveText", "BOTTOMLEFT", 0, -12);
             end
             rewardsCount = rewardsCount + 1;
         end
@@ -946,7 +985,7 @@ local function UpdateQuestIcons()
         if button and button:IsVisible() then
             local iconTexture = button:GetRegions();
             if iconTexture and iconTexture.SetTexture then
-                iconTexture:SetTexture("Interface\\AddOns\\DialogUI\\src\\assets\\art\\icons\\activeQuestIcon");
+                iconTexture:SetTexture("Interface\\AddOns\\DialogUIWotLK\\src\\assets\\art\\icons\\activeQuestIcon");
                 -- Gold "?" only when the quest is actually complete; otherwise show it
                 -- desaturated (black & white) to mean "in progress".
                 if iconTexture.SetDesaturated then
@@ -962,7 +1001,7 @@ local function UpdateQuestIcons()
         if button and button:IsVisible() then
             local iconTexture = button:GetRegions();
             if iconTexture and iconTexture.SetTexture then
-                iconTexture:SetTexture("Interface\\AddOns\\DialogUI\\src\\assets\\art\\icons\\availableQuestIcon");
+                iconTexture:SetTexture("Interface\\AddOns\\DialogUIWotLK\\src\\assets\\art\\icons\\availableQuestIcon");
                 -- Available "!" is always full colour.
                 if iconTexture.SetDesaturated then
                     iconTexture:SetDesaturated(false);
