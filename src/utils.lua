@@ -1,7 +1,7 @@
 ---@diagnostic disable: undefined-global
 -- DialogUI shared utilities
 
-local TRUNCATE = 22;
+local TRUNCATE = 50;
 function TruncateName(name)
     if name and string.len(name) > TRUNCATE then
         return string.sub(name, 1, TRUNCATE - 1) .. "...";
