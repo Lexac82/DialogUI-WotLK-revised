@@ -367,25 +367,38 @@ function DQuestItem_OnClick()
 end
 
 function DQuestReward_SelectChoice(choiceIndex)
-    if (not DQuestFrameRewardPanel:IsVisible()) then
+    if (not DQuestFrameRewardPanel or not DQuestFrameRewardPanel:IsVisible()) then
         return nil;
     end
-    if (choiceIndex < 1 or choiceIndex > GetNumQuestChoices()) then
-        return nil;
-    end
-
-    local rewardItem = getglobal("DQuestRewardItem" .. choiceIndex);
-    if (not rewardItem or not rewardItem:IsVisible() or rewardItem.type ~= "choice") then
+    if (not choiceIndex or choiceIndex < 1 or choiceIndex > GetNumQuestChoices()) then
         return nil;
     end
 
-    DQuestRewardItemHighlight:ClearAllPoints();
-    DQuestRewardItemHighlight:SetPoint("TOPLEFT", rewardItem, "TOPLEFT", -2, 5);
-    DQuestRewardItemHighlight:Show();
-    DQuestFrameRewardPanel.itemChoice = rewardItem:GetID();
+    local rewardItem = _G["DQuestRewardItem" .. choiceIndex];
+    if (not rewardItem or rewardItem == GameTooltip or not rewardItem:IsVisible() or rewardItem.type ~= "choice") then
+        return nil;
+    end
+
+    if DQuestRewardItemHighlight then
+        DQuestRewardItemHighlight:ClearAllPoints();
+        DQuestRewardItemHighlight:SetPoint("TOPLEFT", rewardItem, "TOPLEFT", -2, 5);
+        DQuestRewardItemHighlight:Show();
+    end
+
+    local itemID = rewardItem:GetID();
+    if (not itemID or itemID == 0) then
+        itemID = choiceIndex;
+    end
+    DQuestFrameRewardPanel.itemChoice = itemID;
 
     GameTooltip:SetOwner(rewardItem, "ANCHOR_RIGHT");
-    GameTooltip:SetQuestItem(rewardItem.type, rewardItem:GetID());
+    GameTooltip:ClearLines();
+    if (rewardItem.rewardType == "spell") then
+        GameTooltip:SetQuestRewardSpell();
+    else
+        GameTooltip:SetQuestItem("choice", itemID);
+    end
+    GameTooltip:Show();
 
     return 1;
 end
