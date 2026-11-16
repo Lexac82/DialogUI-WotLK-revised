@@ -525,9 +525,9 @@ function DQuestFrameGreetingPanel_OnShow()
     if (numActiveQuests == 0) then
         DCurrentQuestsText:Hide();
     else
-        DCurrentQuestsText:SetPoint("TOPLEFT", "DGreetingText", "BOTTOMLEFT", 0, -10);
+        DCurrentQuestsText:SetPoint("TOPLEFT", "DGreetingText", "BOTTOMLEFT", 0, -20);
         DCurrentQuestsText:Show();
-        DQuestTitleButton1:SetPoint("TOPLEFT", "DCurrentQuestsText", "BOTTOMLEFT", -10, -5);
+        DQuestTitleButton1:SetPoint("TOPLEFT", "DCurrentQuestsText", "BOTTOMLEFT", 0, -5);
         for i = 1, numActiveQuests, 1 do
             local questTitleButton = getglobal("DQuestTitleButton" .. i);
             -- Add number prefix (1-9) to the quest title
@@ -543,7 +543,7 @@ function DQuestFrameGreetingPanel_OnShow()
             questTitleButton.isActive = 1;
             questTitleButton:Show();
             if (i > 1) then
-                questTitleButton:SetPoint("TOPLEFT", "DQuestTitleButton" .. (i - 1), "BOTTOMLEFT", 0, 0)
+                questTitleButton:SetPoint("TOPLEFT", "DQuestTitleButton" .. (i - 1), "BOTTOMLEFT", 0, -5)
             end
             buttonIndex = buttonIndex + 1;
         end
@@ -554,15 +554,15 @@ function DQuestFrameGreetingPanel_OnShow()
     else
         if (numActiveQuests > 0) then
             DQuestGreetingFrameHorizontalBreak:SetPoint("TOPLEFT", "DQuestTitleButton" .. numActiveQuests, "BOTTOMLEFT",
-                22, -10);
+                0, -10);
             DQuestGreetingFrameHorizontalBreak:Show();
-            DAvailableQuestsText:SetPoint("TOPLEFT", "DQuestGreetingFrameHorizontalBreak", "BOTTOMLEFT", -12, -10);
+            DAvailableQuestsText:SetPoint("TOPLEFT", "DQuestGreetingFrameHorizontalBreak", "BOTTOMLEFT", 0, -10);
         else
-            DAvailableQuestsText:SetPoint("TOPLEFT", "DGreetingText", "BOTTOMLEFT", 0, -10);
+            DAvailableQuestsText:SetPoint("TOPLEFT", "DGreetingText", "BOTTOMLEFT", 0, -20);
         end
         DAvailableQuestsText:Show();
         getglobal("DQuestTitleButton" .. (numActiveQuests + 1)):SetPoint("TOPLEFT", "DAvailableQuestsText", "BOTTOMLEFT",
-            -10, -5);
+            0, -5);
         for i = (numActiveQuests + 1), (numActiveQuests + numAvailableQuests), 1 do
             local questTitleButton = getglobal("DQuestTitleButton" .. i);
             local questTitle = GetAvailableTitle(i - numActiveQuests);
@@ -577,7 +577,7 @@ function DQuestFrameGreetingPanel_OnShow()
             questTitleButton.isActive = 0;
             questTitleButton:Show();
             if (i > numActiveQuests + 1) then
-                questTitleButton:SetPoint("TOPLEFT", "DQuestTitleButton" .. (i - 1), "BOTTOMLEFT", 0, 0)
+                questTitleButton:SetPoint("TOPLEFT", "DQuestTitleButton" .. (i - 1), "BOTTOMLEFT", 0, -5)
             end
             buttonIndex = buttonIndex + 1;
         end
@@ -944,8 +944,8 @@ function DQuestFrameDetailPanel_OnShow()
 end
 
 function DQuestFrameDetailPanel_OnUpdate(elapsed)
-    DQuestFrameNpcNameText:SetText(GetTitleText());
-	if (this.fading) then
+	DQuestFrameNpcNameText:SetText(GetTitleText());
+    if (this.fading) then
         this.fadingProgress = this.fadingProgress + (elapsed * QUEST_DESCRIPTION_GRADIENT_CPS);
         PlaySound("WriteQuest");
         if (not DQuestDescription:SetAlphaGradient(this.fadingProgress, QUEST_DESCRIPTION_GRADIENT_LENGTH)) then
