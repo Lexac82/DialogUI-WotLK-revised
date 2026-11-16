@@ -1020,7 +1020,7 @@
                                                 <Anchor point="TOPLEFT" relativeTo="DGreetingText"
                                                     relativePoint="BOTTOMLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="0" y="0" />
+                                                        <AbsDimension x="0" y="-15" />
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
@@ -1047,7 +1047,7 @@
                                                 <Anchor point="TOPLEFT" relativeTo="DGreetingText"
                                                     relativePoint="BOTTOMLEFT">
                                                     <Offset>
-                                                        <AbsDimension x="0" y="-12" />
+                                                        <AbsDimension x="0" y="-15" />
                                                     </Offset>
                                                 </Anchor>
                                             </Anchors>
