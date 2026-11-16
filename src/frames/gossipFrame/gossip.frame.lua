@@ -17,6 +17,39 @@ local function ExtractInlineGossipIcon(text)
     return nil, text
 end
 
+-- Keyboard handling via frame-scoped override bindings instead of
+-- EnableKeyboard()+OnKeyDown: capturing the keyboard would swallow movement keys
+-- (WASD), and 3.3.5 has no SetPropagateKeyboardInput to let them through. Override
+-- bindings intercept only the bound keys while the quest frame is shown, leaving
+-- movement and everything else untouched, and auto-clear via ClearOverrideBindings.
+--
+-- The plain keys SPACE (accept/complete) and ESCAPE (decline/cancel) are bound plus
+-- the panel's number keys. Binding plain "SPACE"/"ESCAPE" matches only the unmodified key,
+-- so Shift/Ctrl/Alt+Space (and any other combo) pass through normally.
+function DGossipFrame_SetKeys(buttonPrefix, count)
+    if (not DGossipFrame) then
+        return;
+    end
+    ClearOverrideBindings(DGossipFrame);
+    -- SetOverrideBinding(DGossipFrame, true, "ESCAPE", DIALOGUI_DECLINE_BINDING);
+    if (buttonPrefix and count and count >= 1) then
+        if (count > 9) then
+            count = 9;
+        end
+        for i = 1, count do
+            if (getglobal(buttonPrefix .. i)) then
+                SetOverrideBindingClick(DGossipFrame, true, tostring(i), buttonPrefix .. i);
+            end
+        end
+    end
+end
+
+function DGossipFrame_ClearKeys()
+    if (DGossipFrame) then
+        ClearOverrideBindings(DGossipFrame);
+    end
+end
+
 function DGossipFrame_OnShow()
     PlaySound("igQuestListOpen");
     if (StaticPopup_Visible("XP_LOSS")) then
@@ -134,7 +167,11 @@ function DGossipFrame_Update()
     for i = DGossipFrame.buttonIndex, NUMGOSSIPBUTTONS do
         getglobal("DGossipTitleButton" .. i):Hide();
     end
-    DGossipFrameNpcNameText:SetText(TruncateName(UnitName("npc")));
+	
+	-- number keys 1-9 for the listed gossip title buttons.
+    DGossipFrame_SetKeys("DGossipTitleButton", DGossipFrame.buttonIndex - 1);
+	
+    DGossipFrameNpcNameText:SetText(TruncateName(UnitName("npc")));	
     if (UnitExists("npc")) then
         -- Plain SetPortraitTexture renders a CIRCULAR portrait on 3.3.5a.
         SetPortraitTexture(DGossipFramePortrait, "npc");
@@ -166,11 +203,14 @@ function DGossipFrame_AvailableQuestsUpdate(...)
             message("This NPC has too many quests and/or gossip options.")
             break
         end
-
         titleButton = getglobal("DGossipTitleButton" .. DGossipFrame.buttonIndex)
-
-        titleButton:SetText(select(i, ...))
-        titleButton.displayIndex = DGossipFrame.buttonIndex
+		
+		-- Add numbering to the text (only for first 9 options)
+        local numberedText = (DGossipFrame.buttonIndex <= 9 and (DGossipFrame.buttonIndex .. ". ") or "") .. select(i, ...)
+		
+		-- titleButton:SetText(select(i, ...));
+		titleButton:SetText(numberedText);
+		titleButton.displayIndex = DGossipFrame.buttonIndex
 
         titleButton:SetID(titleIndex)
         titleButton.type = "Available"
@@ -195,7 +235,7 @@ function DGossipFrame_AvailableQuestsUpdate(...)
     if (DGossipFrame.buttonIndex > 1) then
         titleButton = getglobal("DGossipTitleButton" .. DGossipFrame.buttonIndex)
         titleButton:Hide()
-        DGossipFrame.buttonIndex = DGossipFrame.buttonIndex + 1
+        -- DGossipFrame.buttonIndex = DGossipFrame.buttonIndex + 1
     end
 end
 
@@ -211,7 +251,11 @@ function DGossipFrame_ActiveQuestsUpdate(...)
         end
         titleButton = getglobal("DGossipTitleButton" .. DGossipFrame.buttonIndex);
 
-        titleButton:SetText(select(i, ...));
+        -- Add numbering to the text (only for first 9 options)
+        local numberedText = (DGossipFrame.buttonIndex <= 9 and (DGossipFrame.buttonIndex .. ". ") or "") .. select(i, ...)
+		
+		-- titleButton:SetText(select(i, ...));
+		titleButton:SetText(numberedText);
         titleButton.displayIndex = DGossipFrame.buttonIndex
 
         titleButton:SetID(titleIndex)
@@ -236,7 +280,7 @@ function DGossipFrame_ActiveQuestsUpdate(...)
     if (titleIndex > 1) then
         titleButton = getglobal("DGossipTitleButton" .. DGossipFrame.buttonIndex);
         titleButton:Hide();
-        DGossipFrame.buttonIndex = DGossipFrame.buttonIndex + 1;
+        -- DGossipFrame.buttonIndex = DGossipFrame.buttonIndex + 1;
     end
 end
 
@@ -295,7 +339,9 @@ function DGossipFrame_OptionsUpdate(...)
         titleButton = getglobal("DGossipTitleButton" .. DGossipFrame.buttonIndex)
 
         local inlineIconTexture, cleanText = ExtractInlineGossipIcon(option.text)
-        titleButton:SetText(cleanText)
+        local numberedText = (DGossipFrame.buttonIndex <= 9 and (DGossipFrame.buttonIndex .. ". ") or "") .. cleanText
+		
+		titleButton:SetText(numberedText)
         titleButton.displayIndex = DGossipFrame.buttonIndex
 
         titleButton:SetID(option.originalIndex)
