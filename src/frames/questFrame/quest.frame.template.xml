@@ -76,16 +76,20 @@
                 this.hasItem = 1;
             </OnLoad>
             <OnEnter>
-                if ( this:GetAlpha() > 0 ) then
-                GameTooltip:SetOwner(this, "ANCHOR_RIGHT");
-                if ( this.rewardType == "item" ) then
-                GameTooltip:SetQuestItem(this.type, this:GetID());
-                elseif ( this.rewardType == "spell" ) then
-                GameTooltip:SetQuestRewardSpell();
-                end
-                end
-                CursorUpdate(this);
-            </OnEnter>
+				local owner = self or this;
+				if ( owner and owner ~= GameTooltip and owner:GetAlpha() > 0 ) then
+					GameTooltip:SetOwner(owner, "ANCHOR_RIGHT");
+					if ( owner.rewardType == "item" ) then
+						GameTooltip:SetQuestItem(owner.type, owner:GetID());
+					elseif ( owner.rewardType == "spell" ) then
+						GameTooltip:SetQuestRewardSpell();
+					end
+					GameTooltip:Show();
+				end
+				if ( owner ) then
+					CursorUpdate(owner);
+				end
+			</OnEnter>
             <OnLeave>
                 GameTooltip:Hide();
                 ResetCursor();
