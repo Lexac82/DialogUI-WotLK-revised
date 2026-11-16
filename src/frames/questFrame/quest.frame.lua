@@ -931,7 +931,8 @@ function DQuestFrameDetailPanel_OnShow()
 end
 
 function DQuestFrameDetailPanel_OnUpdate(elapsed)
-    if (this.fading) then
+    DQuestFrameNpcNameText:SetText(GetTitleText());
+	if (this.fading) then
         this.fadingProgress = this.fadingProgress + (elapsed * QUEST_DESCRIPTION_GRADIENT_CPS);
         PlaySound("WriteQuest");
         if (not DQuestDescription:SetAlphaGradient(this.fadingProgress, QUEST_DESCRIPTION_GRADIENT_LENGTH)) then
