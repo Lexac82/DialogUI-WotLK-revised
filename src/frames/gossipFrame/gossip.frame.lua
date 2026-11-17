@@ -103,11 +103,14 @@ function DGossipFrame_OnEvent(event)
             end
             return;
         end
-        if (not DGossipFrame:IsVisible()) then
-            -- hide Blizzard GossipFrame behind DGossipFrame
+		
+		-- hide Blizzard GossipFrame behind DGossipFrame
+		if GossipFrame then
 			GossipFrame:SetPoint("TOPLEFT", this, "TOPLEFT", 50, -50);
 			GossipFrame:SetScale(0.5);
-			
+		end
+
+        if (not DGossipFrame:IsVisible()) then
 			ShowUIPanel(DGossipFrame);
             if (not DGossipFrame:IsVisible()) then
                 CloseGossip();
