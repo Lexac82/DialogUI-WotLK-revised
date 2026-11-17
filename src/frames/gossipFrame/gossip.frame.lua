@@ -59,6 +59,7 @@ function DGossipFrame_OnShow()
 end
 
 function DGossipFrame_OnHide()
+	DGossipFrame_ClearKeys();
     PlaySound("igQuestListClose");
     CloseGossip();
     if (DialogUI_Focus) then DialogUI_Focus:OnHide(); end
