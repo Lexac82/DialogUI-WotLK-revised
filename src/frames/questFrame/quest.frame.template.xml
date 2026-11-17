@@ -75,7 +75,18 @@
             <OnLoad>
                 this.hasItem = 1;
             </OnLoad>
-            <OnEnter>
+            <!--<OnEnter>
+                if ( this:GetAlpha() > 0 ) then
+                GameTooltip:SetOwner(this, "ANCHOR_RIGHT");
+                if ( this.rewardType == "item" ) then
+                GameTooltip:SetQuestItem(this.type, this:GetID());
+                elseif ( this.rewardType == "spell" ) then
+                GameTooltip:SetQuestRewardSpell();
+                end
+                end
+                CursorUpdate(this);
+            </OnEnter> -->
+			<OnEnter>
 				local owner = self or this;
 				if ( owner and owner ~= GameTooltip and owner:GetAlpha() > 0 ) then
 					GameTooltip:SetOwner(owner, "ANCHOR_RIGHT");
@@ -110,54 +121,41 @@
         </Scripts>
     </Button>
     <Button name="DQuestTitleButtonTemplate" virtual="true">
-        <Size>
-            <AbsDimension x="400" y="20" />
-        </Size>
-        <Layers>
-            <Layer level="BACKGROUND">
+        <Size x="400" y="20" />
+        <Scripts>
+            <OnClick>
+				DQuestTitleButton_OnClick();
+			</OnClick>
+        </Scripts>
+		<HighlightTexture
+        file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\ButtonHighlight-Gossip"
+        alphaMode="ADD" />
+		<Layers>
+            <Layer level="OVERLAY">
                 <Texture name="$parentQuestIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\icons\availableQuestIcon">
                     <Size>
-                        <AbsDimension x="16" y="16" />
+                        <AbsDimension x="20" y="20" />
                     </Size>
                     <Anchors>
-                        <Anchor point="TOPLEFT">
+                        <Anchor point="LEFT">
                             <Offset>
-                                <AbsDimension x="3" y="-5" />
+                                <AbsDimension x="5" y="0" />
                             </Offset>
                         </Anchor>
                     </Anchors>
                 </Texture>
             </Layer>
         </Layers>
-        <Scripts>
-            <OnClick>
-            DQuestTitleButton_OnClick();
-        </OnClick>
-        </Scripts>
-        <HighlightTexture
-        file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\ButtonHighlight-Gossip"
-        alphaMode="ADD" />
-        <ButtonText inherits="DQuestFont" justifyH="LEFT">
-            <Size>
-                <AbsDimension x="275" y="0" />
-            </Size>
-            <Anchors>
-                <Anchor point="TOPLEFT">
-                    <Offset>
-                        <!-- controls the text inside of greeting panel  -->
-                        <AbsDimension x="30" y="-7" />
-                    </Offset>
-                </Anchor>
-            </Anchors>
-        </ButtonText>
-        <NormalFont inherits="DQuestFont" justifyH="LEFT">
+        <ButtonText inherits="DQuestButtonTitleGossip" justifyH="LEFT">
+            <Size x="360" y="0" />
             <Anchors>
                 <Anchor point="LEFT">
                     <Offset>
-                        <AbsDimension x="20" y="0" />
+                        <!-- controls the text inside of greeting panel  -->
+                        <AbsDimension x="30" y="0" />
                     </Offset>
                 </Anchor>
             </Anchors>
-        </NormalFont>
+        </ButtonText>        
     </Button>
 </Ui>
