@@ -6,6 +6,9 @@ QUEST_DESCRIPTION_GRADIENT_LENGTH = 30;
 QUEST_DESCRIPTION_GRADIENT_CPS = 40;
 QUESTINFO_FADE_IN = 1;
 
+-- background texture for QuestTitleButtons
+local OPTION_BG = "Interface\\AddOns\\DialogUIWotLK\\src\\assets\\art\\parchment\\OptionBackground-Common";
+
 -- Minimal one-shot timer. 3.3.5a has no C_Timer/After, so a minimal
 -- OnUpdate queue is used. Re-checks reward sell prices once the client
 -- has cached the item data (GetItemInfo returns nil/0 until then).
@@ -538,7 +541,8 @@ function DQuestFrameGreetingPanel_OnShow()
                 questTitleButton:SetText(questTitle);
             end
             questTitleButton:SetHeight(questTitleButton:GetTextHeight() + 20);
-            SetFontColor(questTitleButton, "DarkBrown");
+            questTitleButton:SetNormalTexture(OPTION_BG);
+			SetFontColor(questTitleButton, "Ivory");
             questTitleButton:SetID(i);
             questTitleButton.isActive = 1;
             questTitleButton:Show();
@@ -572,8 +576,9 @@ function DQuestFrameGreetingPanel_OnShow()
                 questTitleButton:SetText(questTitle);
             end
             questTitleButton:SetHeight(questTitleButton:GetTextHeight() + 20);
-            SetFontColor(questTitleButton, "DarkBrown");
-            questTitleButton:SetID(i - numActiveQuests);
+            SetFontColor(questTitleButton, "Ivory");
+            questTitleButton:SetNormalTexture(OPTION_BG);
+			questTitleButton:SetID(i - numActiveQuests);
             questTitleButton.isActive = 0;
             questTitleButton:Show();
             if (i > numActiveQuests + 1) then
