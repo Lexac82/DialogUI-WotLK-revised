@@ -65,7 +65,7 @@
                     <Anchors>
                         <Anchor point="BOTTOM" relativeTo="DBookFrame" relativePoint="BOTTOM">
                             <Offset>
-                                <AbsDimension x="0" y="94" />
+                                <AbsDimension x="0" y="105" />
                             </Offset>
                         </Anchor>
                     </Anchors>
@@ -111,12 +111,12 @@
             </ScrollFrame>
             <Button name="DBookPrevButton" inherits="DUIPanelButtonTemplate" text="Previous">
                 <Size>
-                    <AbsDimension x="130" y="32" />
+                    <AbsDimension x="190" y="40" />
                 </Size>
                 <Anchors>
                     <Anchor point="BOTTOMLEFT" relativeTo="DBookFrame" relativePoint="BOTTOMLEFT">
                         <Offset>
-                            <AbsDimension x="60" y="56" />
+                            <AbsDimension x="50" y="56" />
                         </Offset>
                     </Anchor>
                 </Anchors>
@@ -128,15 +128,31 @@
             </Button>
             <Button name="DBookNextButton" inherits="DUIPanelButtonTemplate" text="Next Page">
                 <Size>
-                    <AbsDimension x="130" y="32" />
+                    <AbsDimension x="190" y="40" />
                 </Size>
                 <Anchors>
                     <Anchor point="BOTTOMRIGHT" relativeTo="DBookFrame" relativePoint="BOTTOMRIGHT">
                         <Offset>
-                            <AbsDimension x="-60" y="56" />
+                            <AbsDimension x="-50" y="56" />
                         </Offset>
                     </Anchor>
                 </Anchors>
+				<Layers>
+					<Layer level="OVERLAY">
+						<Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\space.tga">
+							<Size>
+								<AbsDimension x="25" y="25" />
+							</Size>
+							<Anchors>
+								<Anchor point="LEFT" relativeTo="DBookNextButton" relativePoint="LEFT">
+									<Offset>
+										<AbsDimension x="8" y="0" />
+									</Offset>
+								</Anchor>
+							</Anchors>
+						</Texture>
+					</Layer>
+				</Layers>
                 <Scripts>
                     <OnClick>
                         DBookNextButton_OnClick();
