@@ -17,9 +17,9 @@
                         <AbsDimension x="20" y="20" />
                     </Size>
                     <Anchors>
-                        <Anchor point="TOPLEFT">
+                        <Anchor point="LEFT">
                             <Offset>
-                                <AbsDimension x="5" y="-6" />
+                                <AbsDimension x="5" y="0" />
                             </Offset>
                         </Anchor>
                     </Anchors>
