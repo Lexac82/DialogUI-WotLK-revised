@@ -45,21 +45,6 @@
                                 </Anchor>
                             </Anchors>
                         </FontString>
-                        <!-- Rule above the Accept / Decline row: centered on the page
-                             and wider than the title underline. -->
-                        <Texture name="DQuestFooterDivider"
-                            file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\Divider-H">
-                            <Size>
-                                <AbsDimension x="450" y="38" />
-                            </Size>
-                            <Anchors>
-                                <Anchor point="BOTTOM" relativeTo="DQuestFrame" relativePoint="BOTTOM">
-                                    <Offset>
-                                        <AbsDimension x="-10" y="76" />
-                                    </Offset>
-                                </Anchor>
-                            </Anchors>
-                        </Texture>
                     </Layer>
                     <!-- Portrait on a LOWER layer than the ring so the face sits
                          beneath the border (drawn first, ring drawn over it). -->
@@ -111,19 +96,32 @@
                             </Anchor>
                         </Anchors>
 						<Layers>
-                            <Layer level="ARTWORK">
+                            <Layer level="OVERLAY">
                                 <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\esc.tga">
                                     <Size>
                                         <AbsDimension x="25" y="25" />
                                     </Size>
                                     <Anchors>
-                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                        <Anchor point="LEFT" relativeTo="DQuestFrameCancelButton" relativePoint="LEFT">
                                             <Offset>
                                                 <AbsDimension x="8" y="0" />
                                             </Offset>
                                         </Anchor>
                                     </Anchors>
                                 </Texture>
+								<!-- Rule above the Accept / Decline row: centered on the page and wider than the title underline. -->
+								<Texture name="DQuestFooterDivider" file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\Divider-H">
+									<Size>
+										<AbsDimension x="450" y="38" />
+									</Size>
+									<Anchors>
+										<Anchor point="BOTTOM" relativeTo="DQuestFrame" relativePoint="BOTTOM">
+											<Offset>
+												<AbsDimension x="-10" y="76" />
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</Texture>
                             </Layer>
                         </Layers>
                         <Scripts>
@@ -146,13 +144,13 @@
                             </Anchor>
                         </Anchors>
 						<Layers>
-                            <Layer level="ARTWORK">
+                            <Layer level="OVERLAY">
                                 <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\space.tga">
                                     <Size>
                                         <AbsDimension x="25" y="25" />
                                     </Size>
                                     <Anchors>
-                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                        <Anchor point="LEFT" relativeTo="DQuestFrameCompleteQuestButton" relativePoint="LEFT">
                                             <Offset>
                                                 <AbsDimension x="8" y="0" />
                                             </Offset>
@@ -405,19 +403,32 @@
                             </Anchor>
                         </Anchors>
 						<Layers>
-                            <Layer level="ARTWORK">
+                            <Layer level="OVERLAY">
                                 <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\esc.tga">
                                     <Size>
                                         <AbsDimension x="25" y="25" />
                                     </Size>
                                     <Anchors>
-                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                        <Anchor point="LEFT" relativeTo="DQuestFrameGoodbyeButton" relativePoint="LEFT">
                                             <Offset>
                                                 <AbsDimension x="8" y="0" />
                                             </Offset>
                                         </Anchor>
                                     </Anchors>
                                 </Texture>
+								<!-- Rule above the Accept / Decline row: centered on the page and wider than the title underline. -->
+								<Texture name="DQuestFooterDivider" file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\Divider-H">
+									<Size>
+										<AbsDimension x="450" y="38" />
+									</Size>
+									<Anchors>
+										<Anchor point="BOTTOM" relativeTo="DQuestFrame" relativePoint="BOTTOM">
+											<Offset>
+												<AbsDimension x="-10" y="76" />
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</Texture>
                             </Layer>
                         </Layers>
                         <Scripts>
@@ -438,13 +449,13 @@
                             </Anchor>
                         </Anchors>
 						<Layers>
-                            <Layer level="ARTWORK">
+                            <Layer level="OVERLAY">
                                 <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\space.tga">
                                     <Size>
                                         <AbsDimension x="25" y="25" />
                                     </Size>
                                     <Anchors>
-                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                        <Anchor point="LEFT" relativeTo="DQuestFrameCompleteButton" relativePoint="LEFT">
                                             <Offset>
                                                 <AbsDimension x="8" y="0" />
                                             </Offset>
@@ -621,19 +632,32 @@
                             </Anchor>
                         </Anchors>
 						<Layers>
-                            <Layer level="ARTWORK">
+                            <Layer level="OVERLAY">
                                 <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\esc.tga">
                                     <Size>
                                         <AbsDimension x="25" y="25" />
                                     </Size>
                                     <Anchors>
-                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                        <Anchor point="LEFT" relativeTo="DQuestFrameDeclineButton" relativePoint="LEFT">
                                             <Offset>
                                                 <AbsDimension x="8" y="0" />
                                             </Offset>
                                         </Anchor>
                                     </Anchors>
                                 </Texture>
+								<!-- Rule above the Accept / Decline row: centered on the page and wider than the title underline. -->
+								<Texture name="DQuestFooterDivider" file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\Divider-H">
+									<Size>
+										<AbsDimension x="450" y="38" />
+									</Size>
+									<Anchors>
+										<Anchor point="BOTTOM" relativeTo="DQuestFrame" relativePoint="BOTTOM">
+											<Offset>
+												<AbsDimension x="-10" y="76" />
+											</Offset>
+										</Anchor>
+									</Anchors>
+								</Texture>
                             </Layer>
                         </Layers>
                         <Scripts>
@@ -656,13 +680,13 @@
                             </Anchor>
                         </Anchors>
 						<Layers>
-                            <Layer level="ARTWORK">
+                            <Layer level="OVERLAY">
                                 <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\space.tga">
                                     <Size>
                                         <AbsDimension x="25" y="25" />
                                     </Size>
                                     <Anchors>
-                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                        <Anchor point="LEFT" relativeTo="DQuestFrameAcceptButton" relativePoint="LEFT">
                                             <Offset>
                                                 <AbsDimension x="8" y="0" />
                                             </Offset>
@@ -952,13 +976,13 @@
                             </Anchor>
                         </Anchors>
 						<Layers>
-                            <Layer level="ARTWORK">
+                            <Layer level="OVERLAY">
                                 <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\esc.tga">
                                     <Size>
                                         <AbsDimension x="25" y="25" />
                                     </Size>
                                     <Anchors>
-                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                        <Anchor point="LEFT" relativeTo="DQuestFrameGreetingGoodbyeButton" relativePoint="LEFT">
                                             <Offset>
                                                 <AbsDimension x="8" y="0" />
                                             </Offset>
