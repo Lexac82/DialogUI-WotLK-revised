@@ -63,22 +63,6 @@
                     </Anchor>
                 </Anchors>
                 <Layers>
-                    <!-- Header divider on BACKGROUND so the portrait (BORDER) draws over it. 
-                    <Layer level="BACKGROUND">
-                        <Texture name="DGossipHeaderDivider"
-                            file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\Divider-H">
-                            <Size>
-                                <AbsDimension x="360" y="26" />
-                            </Size>
-                            <Anchors>
-                                <Anchor point="TOP" relativeTo="DGossipFrame" relativePoint="TOP">
-                                    <Offset>
-                                        <AbsDimension x="60" y="-72" />
-                                    </Offset>
-                                </Anchor>
-                            </Anchors>
-                        </Texture>
-                    </Layer> -->
                     <Layer level="ARTWORK">
                         <!-- NPC name centered over the divider. -->
                         <FontString name="DGossipFrameNpcNameText" inherits="DQuestTitleFont" justifyH="LEFT" justifyV="BOTTOM">
@@ -92,21 +76,7 @@
                                     </Offset>
                                 </Anchor>
                             </Anchors>
-                        </FontString>
-                        <!-- Rule above the Goodbye button. -->
-                        <!-- <Texture name="DGossipFooterDivider"
-                            file="Interface\AddOns\DialogUIWotLK\src\assets\art\parchment\Divider-H">
-                            <Size>
-                                <AbsDimension x="450" y="38" />
-                            </Size>
-                            <Anchors>
-                                <Anchor point="BOTTOM" relativeTo="DGossipFrame" relativePoint="BOTTOM">
-                                    <Offset>
-                                        <AbsDimension x="50" y="76" />
-                                    </Offset>
-                                </Anchor>
-                            </Anchors>
-                        </Texture> -->
+                        </FontString>                        
                     </Layer>
                     <!-- Portrait below the ring so the face sits beneath the border. -->
                     <Layer level="BORDER">
@@ -156,13 +126,13 @@
                             </Anchor>
                         </Anchors>
 						<Layers>
-                            <Layer level="ARTWORK">
+                            <Layer level="OVERLAY">
                                 <Texture name="$parentIcon" file="Interface\AddOns\DialogUIWotLK\src\assets\art\keys\esc.tga">
                                     <Size>
                                         <AbsDimension x="25" y="25" />
                                     </Size>
                                     <Anchors>
-                                        <Anchor point="LEFT" relativeTo="$parent" relativePoint="LEFT">
+                                        <Anchor point="LEFT" relativeTo="DGossipFrameGreetingGoodbyeButton" relativePoint="LEFT">
                                             <Offset>
                                                 <AbsDimension x="8" y="0" />
                                             </Offset>
